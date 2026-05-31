@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="LinguaUK">
+<meta name="theme-color" content="#FAFAF7">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="css/app.css">
+<title>LinguaUK</title>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-inner">
+    <div class="splash-logo">LinguaUK</div>
+    <div class="splash-sub">Your path to the UK</div>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="home" class="screen active">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">Good morning,<br>Luis.</div>
+      <div class="topbar-sub" id="home-date">Loading...</div>
+    </div>
+    <div class="streak-pill"><span id="streak-num">1</span> <span style="opacity:.7;font-size:11px">day streak</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Today's session</div>
+    <div class="today-card">
+      <div class="today-label">Personalised for you</div>
+      <div class="today-title">Vocabulary + British expressions</div>
+      <div class="today-meta">15 min · 3 modules · General + Veterinary</div>
+      <div class="today-tags">
+        <span class="today-tag">12 vocab cards</span>
+        <span class="today-tag">UK vs US English</span>
+        <span class="today-tag">Client dialogue</span>
+      </div>
+      <button class="start-btn" onclick="App.startSession()">Start today's session →</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">UK readiness</div>
+    <div class="uk-meter">
+      <div class="meter-top">
+        <div class="meter-title">Overall progress</div>
+        <div class="meter-pct" id="meter-pct">34%</div>
+      </div>
+      <div class="meter-bar-bg"><div class="meter-bar-fill" id="meter-fill" style="width:0"></div></div>
+      <div class="meter-checks">
+        <div class="meter-check"><div class="check-row"><div class="check-dot" style="background:#888780"></div>Daily life in UK</div><span class="check-level">B2</span></div>
+        <div class="meter-check"><div class="check-row"><div class="check-dot" style="background:#1D9E75"></div>Vet consultation</div><span class="check-level">B1</span></div>
+        <div class="meter-check"><div class="check-row"><div class="check-dot" style="background:#378ADD"></div>Tech interview</div><span class="check-level">B1</span></div>
+        <div class="meter-check"><div class="check-row"><div class="check-dot" style="background:#EF9F27"></div>Renting a flat</div><span class="check-level">B1+</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Your tracks</div>
+    <div class="track-cards">
+      <div class="track-card" onclick="App.goScreen('tracks-screen')">
+        <div class="track-dot" style="background:#888780"></div>
+        <div class="track-name">General UK</div>
+        <div class="track-level">B2 · Active</div>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:62%;background:#888780"></div></div>
+      </div>
+      <div class="track-card" onclick="App.goScreen('tracks-screen')">
+        <div class="track-dot" style="background:#1D9E75"></div>
+        <div class="track-name">Veterinary</div>
+        <div class="track-level">B1 · Active</div>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:38%;background:#1D9E75"></div></div>
+      </div>
+      <div class="track-card" onclick="App.goScreen('tracks-screen')">
+        <div class="track-dot" style="background:#378ADD"></div>
+        <div class="track-name">Tech & Dev</div>
+        <div class="track-level">B1 · Active</div>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:35%;background:#378ADD"></div></div>
+      </div>
+      <div class="track-card" onclick="App.goScreen('tracks-screen')">
+        <div class="track-dot" style="background:#D85A30"></div>
+        <div class="track-name">US → UK</div>
+        <div class="track-level">Custom · Priority</div>
+        <div class="track-bar-bg"><div class="track-bar-fill" style="width:20%;background:#D85A30"></div></div>
+      </div>
+    </div>
+  </div>
+  <div style="height:16px"></div>
+</div>
+
+<!-- PRACTICE -->
+<div id="practice" class="screen">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">Practice</div>
+      <div class="topbar-sub">Choose a module</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">Modules</div>
+    <div class="module-grid">
+      <div class="module-card" onclick="App.openModule('vocab')">
+        <i class="ti ti-cards module-icon" aria-hidden="true"></i>
+        <div class="module-name">Vocabulary</div>
+        <div class="module-desc">Spaced repetition across your 3 tracks</div>
+        <span class="module-badge badge-vet">12 due today</span>
+      </div>
+      <div class="module-card" onclick="App.openModule('grammar')">
+        <i class="ti ti-pencil module-icon" aria-hidden="true"></i>
+        <div class="module-name">Grammar</div>
+        <div class="module-desc">Your errors in context</div>
+        <span class="module-badge badge-gen">8 due today</span>
+      </div>
+      <div class="module-card" onclick="App.openModule('speak')">
+        <i class="ti ti-microphone module-icon" aria-hidden="true"></i>
+        <div class="module-name">Speaking</div>
+        <div class="module-desc">Listen, repeat, record & compare</div>
+        <span class="module-badge badge-warn">Priority for you</span>
+      </div>
+      <div class="module-card" onclick="App.openModule('roleplay')">
+        <i class="ti ti-messages module-icon" aria-hidden="true"></i>
+        <div class="module-name">AI Role play</div>
+        <div class="module-desc">Vet client, tech standup, UK landlord</div>
+        <span class="module-badge badge-tech">AI powered</span>
+      </div>
+      <div class="module-card" onclick="App.openModule('writing')">
+        <i class="ti ti-writing module-icon" aria-hidden="true"></i>
+        <div class="module-name">Writing</div>
+        <div class="module-desc">AI feedback on emails & notes</div>
+        <span class="module-badge badge-tech">AI powered</span>
+      </div>
+      <div class="module-card" onclick="App.openModule('usuk')">
+        <i class="ti ti-arrows-exchange module-icon" aria-hidden="true"></i>
+        <div class="module-name">US → UK</div>
+        <div class="module-desc">Deamericanise your English</div>
+        <span class="module-badge badge-coral">Your main gap</span>
+      </div>
+    </div>
+  </div>
+  <div style="height:16px"></div>
+</div>
+
+<!-- TRACKS -->
+<div id="tracks-screen" class="screen">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">Tracks</div>
+      <div class="topbar-sub">Progress by domain</div>
+    </div>
+  </div>
+  <div class="section" id="tracks-content"></div>
+  <div style="height:16px"></div>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="screen">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">Profile</div>
+      <div class="topbar-sub">Luis · B2 → C1 by Jan 2027</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">Stats</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-val" id="stat-streak">1</div><div class="stat-label">Day streak</div></div>
+      <div class="stat-card"><div class="stat-val" id="stat-mins">0</div><div class="stat-label">Minutes today</div></div>
+      <div class="stat-card"><div class="stat-val">34%</div><div class="stat-label">UK readiness</div></div>
+      <div class="stat-card"><div class="stat-val" id="stat-days">—</div><div class="stat-label">Days to Jan 2027</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">Your recurring errors</div>
+    <div class="error-list">
+      <div class="error-item"><div class="error-pattern">Present perfect vs simple past</div><div class="error-meta">Detected in General · 3 times this week</div></div>
+      <div class="error-item"><div class="error-pattern">"Since" vs "for" with time</div><div class="error-meta">Detected in General · 2 times</div></div>
+      <div class="error-item"><div class="error-pattern">American vocabulary (trash, elevator…)</div><div class="error-meta">US→UK track · Your priority gap</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">7-month plan</div>
+    <div class="plan-list" id="plan-list"></div>
+  </div>
+  <div style="height:16px"></div>
+</div>
+
+<!-- MODULE SCREEN -->
+<div id="module-screen" class="screen">
+  <div id="module-content" class="exercise-screen"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-item active" id="nav-home" onclick="App.goScreen('home')">
+    <i class="ti ti-home" aria-hidden="true"></i><span>Home</span>
+  </div>
+  <div class="nav-item" id="nav-practice" onclick="App.goScreen('practice')">
+    <i class="ti ti-bolt" aria-hidden="true"></i><span>Practice</span>
+  </div>
+  <div class="nav-item" id="nav-tracks" onclick="App.goScreen('tracks-screen')">
+    <i class="ti ti-chart-bar" aria-hidden="true"></i><span>Tracks</span>
+  </div>
+  <div class="nav-item" id="nav-profile" onclick="App.goScreen('profile')">
+    <i class="ti ti-user" aria-hidden="true"></i><span>Profile</span>
+  </div>
+</nav>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/modules.js"></script>
+<script src="js/ai.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
+</body>
+</html>
