@@ -2,7 +2,7 @@ const AI = (() => {
 
   // Direct API call — works from any hosting
   // Replace YOUR_KEY_HERE with your actual sk-ant-... key from console.anthropic.com
-  const KEY = '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';
+  const KEY = 'YOUR_KEY_HERE';
   const API = 'https://api.anthropic.com/v1/messages';
   const MODEL = 'claude-sonnet-4-20250514';
 

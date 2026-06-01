@@ -244,3 +244,27 @@ html, body { font-family: 'DM Sans', -apple-system, sans-serif; background: var(
   .ai-send-btn { background: #F0EEE8 !important; color: #1A1A18 !important; }
   .ex-back { background: #1E1D1A !important; color: #F0EEE8 !important; border-color: #2A2925 !important; }
 }
+
+/* ── ROLEPLAY LAYOUT FIX ── */
+#module-screen .exercise-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - var(--nav-h) - var(--sab));
+  padding-bottom: 0;
+}
+.rp-chat {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  min-height: 120px;
+  max-height: none;
+}
+.rp-input-wrap {
+  padding-bottom: calc(var(--sab) + 12px);
+  padding-top: 8px;
+  background: var(--cream);
+  border-top: 0.5px solid var(--border);
+  margin: 0 -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
