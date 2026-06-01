@@ -1,32 +1,74 @@
-# LinguaUK
+# LinguaUK v2 — Deployment Guide
 
-LinguaUK is a responsive Progressive Web App designed to help Spanish-speaking learners practise UK English through daily personalised sessions, vocabulary cards, British expressions, progress tracking, and mobile-friendly learning modules.
+## Install on iPhone in 10 minutes
 
-The app includes general English, veterinary English, UK daily-life scenarios, and technical interview practice. It is installable as a PWA and deployed with Vercel.
+### Step 1 — Deploy to Vercel
 
-## Live Demo
+**Option A — Drag & drop (easiest):**
+1. Go to vercel.com → sign up free
+2. Click "Add New Project" → "Browse" or drag the `linguauk2` folder
+3. Deploy → get your URL (e.g. linguauk.vercel.app)
 
-https://luislopez-linguauk.vercel.app
+**Option B — From GitHub:**
+1. Push this folder to a GitHub repo
+2. Import repo in Vercel
 
-## Features
+### Step 2 — Add your Anthropic API key (for AI features)
 
-- Daily personalised English practice sessions
-- UK English vocabulary and British expressions
-- General English and veterinary English modules
-- Technical interview and daily-life practice tracks
-- Progress tracking by learning category
-- Mobile-first responsive interface
-- Installable as a Progressive Web App
-- Offline support with Service Worker
+In Vercel dashboard → your project → Settings → Environment Variables:
+- Name: `ANTHROPIC_API_KEY`
+- Value: your key from console.anthropic.com
+- Click Save → Redeploy
 
-## Tech Stack
+### Step 3 — Install on iPhone
 
-HTML · CSS · JavaScript · PWA · Service Worker · GitHub · Vercel
+1. Open your Vercel URL in **Safari** (must be Safari)
+2. Tap Share button → "Add to Home Screen"
+3. Tap Add → app appears on home screen
 
-## Project Purpose
+### Step 4 — Use on PC
 
-This project demonstrates frontend development, responsive UI design, PWA setup, offline-first functionality, GitHub version control, and deployment with Vercel.
+Same URL works in any browser on desktop. Fully responsive.
 
-## Author
+---
 
-Luis López
+## What works without API key (offline)
+- All vocabulary cards (spaced repetition)
+- Grammar exercises
+- Speaking (listen + record)
+- US → UK module
+- Progress tracking (stored locally)
+
+## What needs API key
+- AI Role play (all tracks)
+- Writing feedback
+- Protocol check (Veterinary)
+- Tech interview practice
+
+---
+
+## Project structure
+```
+linguauk2/
+├── index.html          App (track-first navigation)
+├── manifest.json       PWA config
+├── sw.js               Service Worker (offline)
+├── vercel.json         Vercel config
+├── api/
+│   └── claude.js       Serverless proxy (keeps API key secure)
+├── css/
+│   └── app.css         All styles
+├── js/
+│   ├── data.js         All content
+│   ├── app.js          Navigation
+│   ├── modules.js      Exercise modules
+│   └── ai.js           AI integration
+└── icons/
+```
+
+## Adding content
+- Vocabulary: `js/data.js` → `vocab.everyday/vet/tech`
+- Grammar: `js/data.js` → `grammar.everyday/vet/tech`
+- Speaking phrases: `js/data.js` → `speaking.everyday/vet/tech`
+- Role play scenarios: `js/data.js` → `roleplay` array
+- US→UK pairs: `js/data.js` → `usuk` array

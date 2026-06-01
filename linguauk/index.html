@@ -19,34 +19,33 @@
 
 <!-- SPLASH -->
 <div id="splash">
-  <div class="splash-inner">
+  <div>
     <div class="splash-logo">LinguaUK</div>
     <div class="splash-sub">Your path to the UK</div>
   </div>
 </div>
 
-<!-- HOME -->
+<!-- ═══════════════ HOME ═══════════════ -->
 <div id="home" class="screen active">
   <div class="topbar">
     <div>
       <div class="topbar-title">Good morning,<br>Luis.</div>
-      <div class="topbar-sub" id="home-date">Loading...</div>
+      <div class="topbar-sub" id="home-date"></div>
     </div>
-    <div class="streak-pill"><span id="streak-num">1</span> <span style="opacity:.7;font-size:11px">day streak</span></div>
+    <div class="streak-pill"><span id="streak-num">1</span><span class="streak-label">day streak</span></div>
   </div>
 
   <div class="section">
-    <div class="section-label">Today's session</div>
     <div class="today-card">
-      <div class="today-label">Personalised for you</div>
-      <div class="today-title">Vocabulary + British expressions</div>
-      <div class="today-meta">15 min · 3 modules · General + Veterinary</div>
+      <div class="today-label">Today's recommended session</div>
+      <div class="today-title">Vocabulary + Role play</div>
+      <div class="today-meta">~15 min · General UK + Veterinary</div>
       <div class="today-tags">
-        <span class="today-tag">12 vocab cards</span>
-        <span class="today-tag">UK vs US English</span>
-        <span class="today-tag">Client dialogue</span>
+        <span class="today-tag">10 vocab cards</span>
+        <span class="today-tag">AI client scenario</span>
+        <span class="today-tag">US→UK gaps</span>
       </div>
-      <button class="start-btn" onclick="App.startSession()">Start today's session →</button>
+      <button class="start-btn" onclick="Nav.startSession()">Start session →</button>
     </div>
   </div>
 
@@ -54,8 +53,8 @@
     <div class="section-label">UK readiness</div>
     <div class="uk-meter">
       <div class="meter-top">
-        <div class="meter-title">Overall progress</div>
-        <div class="meter-pct" id="meter-pct">34%</div>
+        <div class="meter-title">Overall</div>
+        <div class="meter-pct">34%</div>
       </div>
       <div class="meter-bar-bg"><div class="meter-bar-fill" id="meter-fill" style="width:0"></div></div>
       <div class="meter-checks">
@@ -68,102 +67,195 @@
   </div>
 
   <div class="section">
-    <div class="section-label">Your tracks</div>
+    <div class="section-label">Your tracks — tap to practise</div>
     <div class="track-cards">
-      <div class="track-card" onclick="App.goScreen('tracks-screen')">
-        <div class="track-dot" style="background:#888780"></div>
-        <div class="track-name">General UK</div>
-        <div class="track-level">B2 · Active</div>
-        <div class="track-bar-bg"><div class="track-bar-fill" style="width:62%;background:#888780"></div></div>
+      <div class="track-card" onclick="Nav.goScreen('track-everyday')">
+        <div class="track-card-icon"><i class="ti ti-flag" style="color:#888780" aria-hidden="true"></i></div>
+        <div class="track-card-name">Everyday UK</div>
+        <div class="track-card-level">B2 · Active</div>
+        <div class="track-card-bar"><div class="track-card-fill" style="width:62%;background:#888780"></div></div>
       </div>
-      <div class="track-card" onclick="App.goScreen('tracks-screen')">
-        <div class="track-dot" style="background:#1D9E75"></div>
-        <div class="track-name">Veterinary</div>
-        <div class="track-level">B1 · Active</div>
-        <div class="track-bar-bg"><div class="track-bar-fill" style="width:38%;background:#1D9E75"></div></div>
+      <div class="track-card" onclick="Nav.goScreen('track-vet')">
+        <div class="track-card-icon"><i class="ti ti-stethoscope" style="color:#1D9E75" aria-hidden="true"></i></div>
+        <div class="track-card-name">Veterinary</div>
+        <div class="track-card-level">B1 · Active</div>
+        <div class="track-card-bar"><div class="track-card-fill" style="width:38%;background:#1D9E75"></div></div>
       </div>
-      <div class="track-card" onclick="App.goScreen('tracks-screen')">
-        <div class="track-dot" style="background:#378ADD"></div>
-        <div class="track-name">Tech & Dev</div>
-        <div class="track-level">B1 · Active</div>
-        <div class="track-bar-bg"><div class="track-bar-fill" style="width:35%;background:#378ADD"></div></div>
+      <div class="track-card" onclick="Nav.goScreen('track-tech')">
+        <div class="track-card-icon"><i class="ti ti-code" style="color:#378ADD" aria-hidden="true"></i></div>
+        <div class="track-card-name">Tech & Dev</div>
+        <div class="track-card-level">B1 · Active</div>
+        <div class="track-card-bar"><div class="track-card-fill" style="width:35%;background:#378ADD"></div></div>
       </div>
-      <div class="track-card" onclick="App.goScreen('tracks-screen')">
-        <div class="track-dot" style="background:#D85A30"></div>
-        <div class="track-name">US → UK</div>
-        <div class="track-level">Custom · Priority</div>
-        <div class="track-bar-bg"><div class="track-bar-fill" style="width:20%;background:#D85A30"></div></div>
+      <div class="track-card" onclick="Nav.openModule('everyday','usuk')">
+        <div class="track-card-icon"><i class="ti ti-arrows-exchange" style="color:#D85A30" aria-hidden="true"></i></div>
+        <div class="track-card-name">US → UK</div>
+        <div class="track-card-level">Priority gap</div>
+        <div class="track-card-bar"><div class="track-card-fill" style="width:20%;background:#D85A30"></div></div>
       </div>
     </div>
   </div>
   <div style="height:16px"></div>
 </div>
 
-<!-- PRACTICE -->
-<div id="practice" class="screen">
+<!-- ═══════════════ TRACK: EVERYDAY ═══════════════ -->
+<div id="track-everyday" class="screen">
   <div class="topbar">
     <div>
-      <div class="topbar-title">Practice</div>
-      <div class="topbar-sub">Choose a module</div>
+      <div class="topbar-title">Everyday UK</div>
+      <div class="topbar-sub">B2 · Active</div>
     </div>
+    <i class="ti ti-flag" style="font-size:28px;color:#888780;margin-top:4px" aria-hidden="true"></i>
   </div>
   <div class="section">
     <div class="section-label">Modules</div>
     <div class="module-grid">
-      <div class="module-card" onclick="App.openModule('vocab')">
-        <i class="ti ti-cards module-icon" aria-hidden="true"></i>
+      <div class="module-card" onclick="Nav.openModule('everyday','ev-vocab')">
+        <i class="ti ti-cards module-icon" style="color:#888780" aria-hidden="true"></i>
         <div class="module-name">Vocabulary</div>
-        <div class="module-desc">Spaced repetition across your 3 tracks</div>
-        <span class="module-badge badge-vet">12 due today</span>
+        <div class="module-desc">British expressions & UK life</div>
+        <span class="module-badge" style="background:#F1EFE8;color:#444441">10 due</span>
       </div>
-      <div class="module-card" onclick="App.openModule('grammar')">
-        <i class="ti ti-pencil module-icon" aria-hidden="true"></i>
+      <div class="module-card" onclick="Nav.openModule('everyday','ev-grammar')">
+        <i class="ti ti-pencil module-icon" style="color:#888780" aria-hidden="true"></i>
         <div class="module-name">Grammar</div>
         <div class="module-desc">Your errors in context</div>
-        <span class="module-badge badge-gen">8 due today</span>
+        <span class="module-badge" style="background:#F1EFE8;color:#444441">5 exercises</span>
       </div>
-      <div class="module-card" onclick="App.openModule('speak')">
-        <i class="ti ti-microphone module-icon" aria-hidden="true"></i>
+      <div class="module-card" onclick="Nav.openModule('everyday','ev-speak')">
+        <i class="ti ti-microphone module-icon" style="color:#888780" aria-hidden="true"></i>
         <div class="module-name">Speaking</div>
-        <div class="module-desc">Listen, repeat, record & compare</div>
-        <span class="module-badge badge-warn">Priority for you</span>
+        <div class="module-desc">Pronounce like a British person</div>
       </div>
-      <div class="module-card" onclick="App.openModule('roleplay')">
-        <i class="ti ti-messages module-icon" aria-hidden="true"></i>
+      <div class="module-card" onclick="Nav.openModule('everyday','ev-role')">
+        <i class="ti ti-messages module-icon" style="color:#888780" aria-hidden="true"></i>
         <div class="module-name">AI Role play</div>
-        <div class="module-desc">Vet client, tech standup, UK landlord</div>
-        <span class="module-badge badge-tech">AI powered</span>
+        <div class="module-desc">Landlord, NHS, pub chat</div>
+        <span class="module-badge" style="background:#F1EFE8;color:#444441">AI + correction</span>
       </div>
-      <div class="module-card" onclick="App.openModule('writing')">
-        <i class="ti ti-writing module-icon" aria-hidden="true"></i>
-        <div class="module-name">Writing</div>
-        <div class="module-desc">AI feedback on emails & notes</div>
-        <span class="module-badge badge-tech">AI powered</span>
-      </div>
-      <div class="module-card" onclick="App.openModule('usuk')">
-        <i class="ti ti-arrows-exchange module-icon" aria-hidden="true"></i>
+      <div class="module-card" onclick="Nav.openModule('everyday','usuk')">
+        <i class="ti ti-arrows-exchange module-icon" style="color:#D85A30" aria-hidden="true"></i>
         <div class="module-name">US → UK</div>
         <div class="module-desc">Deamericanise your English</div>
-        <span class="module-badge badge-coral">Your main gap</span>
+        <span class="module-badge" style="background:#FAECE7;color:#993C1D">Your priority</span>
+      </div>
+      <div class="module-card" onclick="Nav.openModule('everyday','ev-write')">
+        <i class="ti ti-writing module-icon" style="color:#888780" aria-hidden="true"></i>
+        <div class="module-name">Writing</div>
+        <div class="module-desc">Emails, messages, AI feedback</div>
+        <span class="module-badge" style="background:#F1EFE8;color:#444441">AI feedback</span>
       </div>
     </div>
   </div>
   <div style="height:16px"></div>
 </div>
 
-<!-- TRACKS -->
-<div id="tracks-screen" class="screen">
+<!-- ═══════════════ TRACK: VETERINARY ═══════════════ -->
+<div id="track-vet" class="screen">
   <div class="topbar">
     <div>
-      <div class="topbar-title">Tracks</div>
-      <div class="topbar-sub">Progress by domain</div>
+      <div class="topbar-title">Veterinary</div>
+      <div class="topbar-sub">B1 · Dog & cat clinical English</div>
+    </div>
+    <i class="ti ti-stethoscope" style="font-size:28px;color:#1D9E75;margin-top:4px" aria-hidden="true"></i>
+  </div>
+  <div class="section">
+    <div class="section-label">Modules</div>
+    <div class="module-grid">
+      <div class="module-card" onclick="Nav.openModule('vet','vet-vocab')">
+        <i class="ti ti-cards module-icon" style="color:#1D9E75" aria-hidden="true"></i>
+        <div class="module-name">Clinical vocab</div>
+        <div class="module-desc">Dog & cat terminology</div>
+        <span class="module-badge" style="background:#E1F5EE;color:#0F6E56">10 due</span>
+      </div>
+      <div class="module-card" onclick="Nav.openModule('vet','ev-grammar')">
+        <i class="ti ti-pencil module-icon" style="color:#1D9E75" aria-hidden="true"></i>
+        <div class="module-name">Clinical grammar</div>
+        <div class="module-desc">Notes, consents, diagnoses</div>
+        <span class="module-badge" style="background:#E1F5EE;color:#0F6E56">5 exercises</span>
+      </div>
+      <div class="module-card" onclick="Nav.openModule('vet','vet-client')">
+        <i class="ti ti-messages module-icon" style="color:#1D9E75" aria-hidden="true"></i>
+        <div class="module-name">Client comms</div>
+        <div class="module-desc">Talk to worried owners</div>
+        <span class="module-badge" style="background:#E1F5EE;color:#0F6E56">AI + correction</span>
+      </div>
+      <div class="module-card" onclick="Nav.openModule('vet','vet-proto')">
+        <i class="ti ti-clipboard-check module-icon" style="color:#1D9E75" aria-hidden="true"></i>
+        <div class="module-name">Protocol check</div>
+        <div class="module-desc">Is your clinical approach correct?</div>
+        <span class="module-badge" style="background:#E1F5EE;color:#0F6E56">AI assessment</span>
+      </div>
+      <div class="module-card" onclick="Nav.openModule('vet','vet-notes')">
+        <i class="ti ti-notes module-icon" style="color:#1D9E75" aria-hidden="true"></i>
+        <div class="module-name">Clinical notes</div>
+        <div class="module-desc">Write records in English</div>
+        <span class="module-badge" style="background:#E1F5EE;color:#0F6E56">AI feedback</span>
+      </div>
+      <div class="module-card" onclick="Nav.openModule('vet','vet-speak')">
+        <i class="ti ti-microphone module-icon" style="color:#1D9E75" aria-hidden="true"></i>
+        <div class="module-name">Pronunciation</div>
+        <div class="module-desc">Clinical terms out loud</div>
+      </div>
     </div>
   </div>
-  <div class="section" id="tracks-content"></div>
   <div style="height:16px"></div>
 </div>
 
-<!-- PROFILE -->
+<!-- ═══════════════ TRACK: TECH ═══════════════ -->
+<div id="track-tech" class="screen">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">Tech & Dev</div>
+      <div class="topbar-sub">B1 · Dev, AI, certifications, interviews</div>
+    </div>
+    <i class="ti ti-code" style="font-size:28px;color:#378ADD;margin-top:4px" aria-hidden="true"></i>
+  </div>
+  <div class="section">
+    <div class="section-label">Modules</div>
+    <div class="module-grid">
+      <div class="module-card" onclick="Nav.openModule('tech','tech-vocab')">
+        <i class="ti ti-cards module-icon" style="color:#378ADD" aria-hidden="true"></i>
+        <div class="module-name">Dev vocabulary</div>
+        <div class="module-desc">Jargon, acronyms, patterns</div>
+        <span class="module-badge" style="background:#E6F1FB;color:#185FA5">10 due</span>
+      </div>
+      <div class="module-card" onclick="Nav.openModule('tech','ev-grammar')">
+        <i class="ti ti-pencil module-icon" style="color:#378ADD" aria-hidden="true"></i>
+        <div class="module-name">Tech grammar</div>
+        <div class="module-desc">Slack, PR comments, standups</div>
+        <span class="module-badge" style="background:#E6F1FB;color:#185FA5">5 exercises</span>
+      </div>
+      <div class="module-card" onclick="Nav.openModule('tech','tech-stand')">
+        <i class="ti ti-device-laptop module-icon" style="color:#378ADD" aria-hidden="true"></i>
+        <div class="module-name">Standup & meetings</div>
+        <div class="module-desc">Daily standups in English</div>
+        <span class="module-badge" style="background:#E6F1FB;color:#185FA5">AI + correction</span>
+      </div>
+      <div class="module-card" onclick="Nav.openModule('tech','tech-inter')">
+        <i class="ti ti-briefcase module-icon" style="color:#378ADD" aria-hidden="true"></i>
+        <div class="module-name">Tech interview</div>
+        <div class="module-desc">Explain your experience</div>
+        <span class="module-badge" style="background:#E6F1FB;color:#185FA5">AI + correction</span>
+      </div>
+      <div class="module-card" onclick="Nav.openModule('tech','tech-review')">
+        <i class="ti ti-code module-icon" style="color:#378ADD" aria-hidden="true"></i>
+        <div class="module-name">Code review</div>
+        <div class="module-desc">PR comments & feedback</div>
+        <span class="module-badge" style="background:#E6F1FB;color:#185FA5">AI + correction</span>
+      </div>
+      <div class="module-card" onclick="Nav.openModule('tech','tech-write')">
+        <i class="ti ti-writing module-icon" style="color:#378ADD" aria-hidden="true"></i>
+        <div class="module-name">Writing</div>
+        <div class="module-desc">Slack, PRs, emails, docs</div>
+        <span class="module-badge" style="background:#E6F1FB;color:#185FA5">AI feedback</span>
+      </div>
+    </div>
+  </div>
+  <div style="height:16px"></div>
+</div>
+
+<!-- ═══════════════ PROFILE ═══════════════ -->
 <div id="profile" class="screen">
   <div class="topbar">
     <div>
@@ -181,11 +273,11 @@
     </div>
   </div>
   <div class="section">
-    <div class="section-label">Your recurring errors</div>
+    <div class="section-label">Recurring errors detected</div>
     <div class="error-list">
-      <div class="error-item"><div class="error-pattern">Present perfect vs simple past</div><div class="error-meta">Detected in General · 3 times this week</div></div>
-      <div class="error-item"><div class="error-pattern">"Since" vs "for" with time</div><div class="error-meta">Detected in General · 2 times</div></div>
-      <div class="error-item"><div class="error-pattern">American vocabulary (trash, elevator…)</div><div class="error-meta">US→UK track · Your priority gap</div></div>
+      <div class="error-item"><div class="error-pattern">Present perfect vs simple past</div><div class="error-meta">General track · 3 times this week</div></div>
+      <div class="error-item"><div class="error-pattern">"Since" vs "for" with time</div><div class="error-meta">General track · 2 times</div></div>
+      <div class="error-item"><div class="error-pattern">American vocabulary (trash, elevator…)</div><div class="error-meta">US→UK · Your main priority gap</div></div>
     </div>
   </div>
   <div class="section">
@@ -195,35 +287,36 @@
   <div style="height:16px"></div>
 </div>
 
-<!-- MODULE SCREEN -->
+<!-- ═══════════════ MODULE SCREEN ═══════════════ -->
 <div id="module-screen" class="screen">
   <div id="module-content" class="exercise-screen"></div>
 </div>
 
 <!-- NAV -->
 <nav class="nav">
-  <div class="nav-item active" id="nav-home" onclick="App.goScreen('home')">
+  <div class="nav-item active" id="nav-home" onclick="Nav.goScreen('home')">
     <i class="ti ti-home" aria-hidden="true"></i><span>Home</span>
   </div>
-  <div class="nav-item" id="nav-practice" onclick="App.goScreen('practice')">
-    <i class="ti ti-bolt" aria-hidden="true"></i><span>Practice</span>
+  <div class="nav-item" id="nav-everyday" onclick="Nav.goScreen('track-everyday')">
+    <i class="ti ti-flag" aria-hidden="true"></i><span>Everyday</span>
   </div>
-  <div class="nav-item" id="nav-tracks" onclick="App.goScreen('tracks-screen')">
-    <i class="ti ti-chart-bar" aria-hidden="true"></i><span>Tracks</span>
+  <div class="nav-item" id="nav-vet" onclick="Nav.goScreen('track-vet')">
+    <i class="ti ti-stethoscope" aria-hidden="true"></i><span>Vet</span>
   </div>
-  <div class="nav-item" id="nav-profile" onclick="App.goScreen('profile')">
+  <div class="nav-item" id="nav-tech" onclick="Nav.goScreen('track-tech')">
+    <i class="ti ti-code" aria-hidden="true"></i><span>Tech</span>
+  </div>
+  <div class="nav-item" id="nav-profile" onclick="Nav.goScreen('profile')">
     <i class="ti ti-user" aria-hidden="true"></i><span>Profile</span>
   </div>
 </nav>
 
 <script src="js/data.js"></script>
-<script src="js/app.js"></script>
-<script src="js/modules.js"></script>
 <script src="js/ai.js"></script>
+<script src="js/modules.js"></script>
+<script src="js/app.js"></script>
 <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js');
-  }
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 </script>
 </body>
 </html>

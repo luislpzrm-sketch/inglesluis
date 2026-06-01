@@ -1,321 +1,157 @@
 const DATA = {
 
-  grammarQuestions: [
-    {
-      track: 'General', color: '#5F5E5A',
-      type: 'Grammar · UK English',
-      q: 'Choose the correct sentence a British person would say:',
-      opts: ['I have been living in London since five years.', 'I have lived in London for five years.', 'I live in London since five years.', 'I am living in London for five years.'],
-      c: 1,
-      f: '"For" + duration, "since" + starting point. Present perfect + "for" is the natural British form. This is one of the most common errors for Spanish speakers.'
-    },
-    {
-      track: 'General', color: '#5F5E5A',
-      type: 'US → British English',
-      q: 'You need to throw something away in the UK. You look for the:',
-      opts: ['Trash can', 'Garbage bin', 'Rubbish bin', 'Waste basket'],
-      c: 2,
-      f: '"Rubbish bin" is standard British English. "Trash" and "garbage" are American — people understand but you\'ll sound foreign. Other common ones: "shop" not "store", "post" not "mail".'
-    },
-    {
-      track: 'General', color: '#5F5E5A',
-      type: 'British register',
-      q: 'Your UK flatmate says: "Could you not leave your stuff on the sofa?" They mean:',
-      opts: ['They\'re asking if you\'re able to move it', 'Please don\'t leave your stuff there', 'They don\'t mind where you leave it', 'They want to know if you have stuff'],
-      c: 1,
-      f: 'Classic British indirect request. "Could you not..." is a polite but firm way of saying "please stop doing that". Much more common than a direct command in British culture.'
-    },
-    {
-      track: 'Veterinary', color: '#0F6E56',
-      type: 'Clinical English',
-      q: 'A client says their dog has been "off its food" for two days. This means:',
-      opts: ['The dog ate spoiled food', 'The dog has not been eating well', 'The dog is food aggressive', 'The dog has been vomiting food'],
-      c: 1,
-      f: '"Off its food" is a very common British expression for reduced appetite or not eating. You\'ll hear this constantly from clients. Also: "off-colour" = feeling unwell, "peaky" = looking ill.'
-    },
-    {
-      track: 'Veterinary', color: '#0F6E56',
-      type: 'Clinical communication',
-      q: 'Complete what a UK vet would say: "We\'re going to run _____ to check her kidney function."',
-      opts: ['an exam', 'some tests', 'a blood', 'some analysis'],
-      c: 1,
-      f: '"Run some tests" or "run a blood panel" is natural clinical English. "Do some tests" also works. "Analysis" sounds overly formal or translated. "Run" is the standard verb in clinical contexts.'
-    },
-    {
-      track: 'Veterinary', color: '#0F6E56',
-      type: 'Clinical notes',
-      q: 'In a UK clinical record, "BAR" as a patient status means:',
-      opts: ['Below average response', 'Bright, alert and responsive', 'Breathing and reacting', 'Basic assessment result'],
-      c: 1,
-      f: 'BAR (Bright, Alert, Responsive) is standard in English-language clinical notes. Also: QAR (Quiet, Alert, Responsive) for a slightly subdued but stable patient. These are universal in UK practice.'
-    },
-    {
-      track: 'Tech', color: '#185FA5',
-      type: 'Dev culture',
-      q: 'In a code review, a colleague comments "nit: maybe rename this variable". They mean:',
-      opts: ['This is a critical bug that must be fixed', 'A small, optional style suggestion', 'The variable name causes a bug', 'They want to rewrite the entire function'],
-      c: 1,
-      f: '"Nit" (nitpick) = a minor, often optional suggestion about style or naming. Not blocking. Other common review terms: "blocking" (must fix), "suggestion" (optional), "LGTM" (looks good to me, approve).'
-    },
-    {
-      track: 'Tech', color: '#185FA5',
-      type: 'UK workplace English',
-      q: 'Your tech lead says "let\'s table this for now" in a UK team meeting. They mean:',
-      opts: ['Let\'s discuss it right now', 'Let\'s postpone it for later', 'Let\'s delete it from the backlog', 'Let\'s document it immediately'],
-      c: 1,
-      f: 'Critical difference: in British English "table" = postpone/set aside. In American English it means the opposite (bring to the table = discuss now). Easy to misread in a UK team. Very important!'
-    },
-    {
-      track: 'Tech', color: '#185FA5',
-      type: 'Professional writing',
-      q: 'Which is the most natural Slack message to your UK dev team?',
-      opts: ['I will work in this feature since tomorrow.', 'I\'ll be picking up this feature from tomorrow.', 'I work on this feature from tomorrow on.', 'I am going to work this feature starting tomorrow.'],
-      c: 1,
-      f: '"Pick up" a task is natural workplace English. "From tomorrow" is clean British phrasing. The others have preposition or tense errors typical for Spanish speakers. "I\'ll be..." is more natural than "I will" in casual UK workplace communication.'
-    },
-    {
-      track: 'General', color: '#5F5E5A',
-      type: 'Listening comprehension',
-      q: 'A UK landlord texts you: "The boiler\'s on the blink again — rung the engineer, he should be round Thursday-ish." What happened?',
-      opts: ['The boiler was incorrectly installed', 'The boiler is broken and a repair visit is scheduled', 'You need to call the engineer yourself', 'There is a problem with the blink sensor'],
-      c: 1,
-      f: '"On the blink" = broken/not working. "Ring" = call (British). "Round" = coming to your place. "Thursday-ish" = approximately Thursday. This is typical informal British texting style you\'ll receive constantly.'
-    },
+  tracks: [
+    { id: 'everyday', name: 'Everyday UK', icon: 'ti-flag', color: '#444441', light: '#F1EFE8', mid: '#888780', level: 'B2', pct: 62 },
+    { id: 'vet',      name: 'Veterinary',  icon: 'ti-stethoscope', color: '#0F6E56', light: '#E1F5EE', mid: '#1D9E75', level: 'B1', pct: 38 },
+    { id: 'tech',     name: 'Tech & Dev',  icon: 'ti-code', color: '#185FA5', light: '#E6F1FB', mid: '#378ADD', level: 'B1', pct: 35 },
   ],
 
-  vocabCards: [
-    {
-      word: 'Knackered', phonetic: '/ˈnækəd/', track: 'General', color: '#5F5E5A',
-      def: 'Extremely tired, exhausted.',
-      ex: '"After a double shift at the practice I was absolutely knackered."',
-      us: 'Exhausted / wiped out'
-    },
-    {
-      word: 'Fortnight', phonetic: '/ˈfɔːtnaɪt/', track: 'General', color: '#5F5E5A',
-      def: 'A period of two weeks.',
-      ex: '"The follow-up appointment is in a fortnight."',
-      us: 'Two weeks (Americans never say "fortnight")'
-    },
-    {
-      word: 'Moggy', phonetic: '/ˈmɒɡi/', track: 'Veterinary', color: '#0F6E56',
-      def: 'Informal British word for a domestic cat, especially a non-pedigree one.',
-      ex: '"The owner brought her moggy in for a routine vaccination."'
-    },
-    {
-      word: 'Off-colour', phonetic: '/ɒf ˈkʌlə/', track: 'Veterinary', color: '#0F6E56',
-      def: 'Feeling slightly unwell, not at one\'s best.',
-      ex: '"The owner says the dog has been a bit off-colour since yesterday — reduced appetite and lethargy."',
-      us: '"Under the weather" or just "not feeling well"'
-    },
-    {
-      word: 'Prognosis', phonetic: '/prɒɡˈnəʊsɪs/', track: 'Veterinary', color: '#0F6E56',
-      def: 'The likely course of a disease or condition; the prospect of recovery.',
-      ex: '"I have to be honest with you — the prognosis for this type of lymphoma is unfortunately quite guarded."'
-    },
-    {
-      word: 'Refactor', phonetic: '/riːˈfæktə/', track: 'Tech', color: '#185FA5',
-      def: 'Restructure existing code without changing its external behaviour. To improve code quality without adding features.',
-      ex: '"Before we add the new auth flow, we need to refactor the user model — it\'s getting messy."'
-    },
-    {
-      word: 'Technical debt', phonetic: '/ˈteknɪkəl det/', track: 'Tech', color: '#185FA5',
-      def: 'The implied cost of additional work caused by choosing an easy/quick solution now instead of a better approach that would take longer.',
-      ex: '"We shipped fast but we\'ve accumulated a lot of technical debt — the next sprint should address that."'
-    },
-    {
-      word: 'Cheeky', phonetic: '/ˈtʃiːki/', track: 'General', color: '#5F5E5A',
-      def: 'Slightly disrespectful but in a charming or amusing way. Also used positively to mean doing something slightly naughty but fun.',
-      ex: '"Fancy a cheeky pint after the practice closes?" / "That was a cheeky move in the code review."',
-      us: 'Sassy / bold — but in British English it\'s often affectionate'
-    },
-    {
-      word: 'Dysuria', phonetic: '/dɪsˈjʊəriə/', track: 'Veterinary', color: '#0F6E56',
-      def: 'Painful or difficult urination. Common presenting complaint in cats with FLUTD.',
-      ex: '"The cat is showing signs of dysuria and haematuria — suspect feline idiopathic cystitis."'
-    },
-    {
-      word: 'Sprint', phonetic: '/sprɪnt/', track: 'Tech', color: '#185FA5',
-      def: 'In agile development, a fixed time period (usually 1-2 weeks) during which specific work must be completed.',
-      ex: '"We\'ll pick this up in the next sprint — it\'s not in scope for this one."'
-    },
-    {
-      word: 'Brilliant', phonetic: '/ˈbrɪliənt/', track: 'General', color: '#5F5E5A',
-      def: 'In everyday British English, "brilliant" often simply means "great" or "fine" — not necessarily spectacular.',
-      ex: '"Can you send me the report by Thursday?" "Brilliant, no problem."',
-      us: '"Great" / "Awesome" — Americans would find British "brilliant" overused'
-    },
-    {
-      word: 'Murmur', phonetic: '/ˈmɜːmə/', track: 'Veterinary', color: '#0F6E56',
-      def: 'An abnormal heart sound heard through a stethoscope, caused by turbulent blood flow.',
-      ex: '"On auscultation I detected a grade 3/6 systolic murmur — we should discuss cardiac referral."'
-    },
+  modules: {
+    everyday: [
+      { id: 'ev-vocab',   name: 'Vocabulary',        icon: 'ti-cards',        desc: 'British expressions & UK life' },
+      { id: 'ev-grammar', name: 'Grammar',            icon: 'ti-pencil',       desc: 'Your errors in context' },
+      { id: 'ev-speak',   name: 'Speaking',           icon: 'ti-microphone',   desc: 'Pronounce like a British person' },
+      { id: 'ev-role',    name: 'Role play',          icon: 'ti-messages',     desc: 'Landlord, NHS, flatmates, pub', ai: true },
+      { id: 'usuk',       name: 'US → UK',            icon: 'ti-arrows-exchange', desc: 'Deamericanise your English', badge: 'Your gap' },
+    ],
+    vet: [
+      { id: 'vet-vocab',  name: 'Clinical vocab',     icon: 'ti-cards',        desc: 'Dog & cat terminology' },
+      { id: 'vet-client', name: 'Client comms',       icon: 'ti-messages',     desc: 'Talk to worried owners', ai: true },
+      { id: 'vet-notes',  name: 'Clinical notes',     icon: 'ti-notes',        desc: 'Write records in English', ai: true },
+      { id: 'vet-speak',  name: 'Pronunciation',      icon: 'ti-microphone',   desc: 'Clinical terms out loud' },
+      { id: 'vet-proto',  name: 'Protocol check',     icon: 'ti-clipboard-check', desc: 'Is your approach correct?', ai: true },
+    ],
+    tech: [
+      { id: 'tech-vocab', name: 'Dev vocabulary',     icon: 'ti-cards',        desc: 'Jargon, acronyms, patterns' },
+      { id: 'tech-stand', name: 'Standup & meetings', icon: 'ti-messages',     desc: 'Daily standups in English', ai: true },
+      { id: 'tech-review',name: 'Code review',        icon: 'ti-code',         desc: 'PR comments & feedback', ai: true },
+      { id: 'tech-inter', name: 'Tech interview',     icon: 'ti-briefcase',    desc: 'Explain your experience', ai: true },
+      { id: 'tech-speak', name: 'Pronunciation',      icon: 'ti-microphone',   desc: 'Tech terms & acronyms' },
+    ],
+  },
+
+  vocab: {
+    everyday: [
+      { word: 'Knackered',   ph: '/ˈnækəd/',      def: 'Extremely tired, exhausted.',  ex: '"After the night shift I was absolutely knackered."', us: 'exhausted / wiped out' },
+      { word: 'Fortnight',   ph: '/ˈfɔːtnaɪt/',   def: 'A period of two weeks.',       ex: '"The follow-up is in a fortnight."', us: 'two weeks' },
+      { word: 'Cheeky',      ph: '/ˈtʃiːki/',     def: 'Slightly bold or disrespectful, but in a charming way. "A cheeky pint" = an impromptu drink.', ex: '"Fancy a cheeky pint after work?"', us: 'sassy / bold (but affectionate in UK)' },
+      { word: 'Brilliant',   ph: '/ˈbrɪliənt/',   def: 'In everyday UK use simply means "great" or "fine" — not necessarily spectacular.', ex: '"Can you send it by Thursday?" "Brilliant, no problem."', us: 'great / awesome' },
+      { word: 'Gutted',      ph: '/ˈɡʌtɪd/',      def: 'Very disappointed or upset.',  ex: '"I didn\'t get the flat — I\'m absolutely gutted."', us: 'devastated / bummed out' },
+      { word: 'Dodgy',       ph: '/ˈdɒdʒi/',      def: 'Suspicious, unreliable, or of poor quality.', ex: '"That landlord seems a bit dodgy — read the contract carefully."', us: 'sketchy / shady' },
+      { word: 'Chuffed',     ph: '/tʃʌft/',        def: 'Very pleased or proud.',       ex: '"I passed my IELTS — I\'m dead chuffed."' },
+      { word: 'Queue',       ph: '/kjuː/',         def: 'A line of people waiting. Also a verb: to queue up.', ex: '"There\'s always a massive queue at the GP surgery on Mondays."', us: 'line / to line up' },
+      { word: 'Bloke',       ph: '/bləʊk/',        def: 'A man (informal, very common).',ex: '"The bloke from the council came to fix the boiler."', us: 'guy / dude' },
+      { word: 'Biscuit',     ph: '/ˈbɪskɪt/',     def: 'A hard, flat, sweet snack (NOT like American biscuits which are like scones).', ex: '"Fancy a biscuit with your tea?"', us: 'cookie (US biscuit = UK scone)' },
+    ],
+    vet: [
+      { word: 'Moggy',       ph: '/ˈmɒɡi/',       def: 'Informal British word for a domestic cat, especially non-pedigree.', ex: '"The owner brought her moggy in for boosters."' },
+      { word: 'Off-colour',  ph: '/ɒf ˈkʌlə/',    def: 'Feeling slightly unwell, not at one\'s best.',  ex: '"He\'s been a bit off-colour since yesterday — not eating."', us: 'under the weather' },
+      { word: 'BAR',         ph: '/biː eɪ ɑː/',   def: 'Bright, Alert, Responsive — standard UK clinical status abbreviation.', ex: '"Patient is BAR with stable vitals."' },
+      { word: 'Dysuria',     ph: '/dɪsˈjʊəriə/',  def: 'Painful or difficult urination. Common in cats with FLUTD.', ex: '"Cat presenting with dysuria and haematuria — suspect FIC."' },
+      { word: 'Murmur',      ph: '/ˈmɜːmə/',      def: 'Abnormal heart sound caused by turbulent blood flow.', ex: '"On auscultation: grade 3/6 systolic murmur — refer for echo."' },
+      { word: 'Prognosis',   ph: '/prɒɡˈnəʊsɪs/', def: 'The likely course of a disease; prospect of recovery.', ex: '"I need to be honest — the prognosis is guarded."' },
+      { word: 'Triage',      ph: '/ˈtriːɑːʒ/',    def: 'Assess and prioritise patients by urgency.',  ex: '"Can you triage this — it came in as an emergency."' },
+      { word: 'Guarded',     ph: '/ˈɡɑːdɪd/',     def: 'Clinical prognosis term: uncertain, cautious outlook.', ex: '"Prognosis is guarded given the extent of the disease."' },
+      { word: 'Presenting complaint', ph: '/',    def: 'The main reason the owner has brought the animal in.', ex: '"Presenting complaint: vomiting for 48h and lethargy."' },
+      { word: 'Ataxia',      ph: '/əˈtæksiə/',    def: 'Loss of coordination, unsteady gait.',       ex: '"The dog is showing signs of ataxia — needs neuro workup."' },
+    ],
+    tech: [
+      { word: 'Refactor',    ph: '/riːˈfæktə/',   def: 'Restructure existing code without changing its external behaviour.', ex: '"Let\'s refactor the auth module before adding features."' },
+      { word: 'Technical debt', ph: '/',           def: 'The future cost of quick/dirty solutions taken now.', ex: '"We need a sprint just for tech debt — it\'s slowing us down."' },
+      { word: 'Nit',         ph: '/nɪt/',          def: 'In code reviews: a minor, often optional style suggestion (short for nitpick).', ex: '"nit: maybe rename this variable to be more descriptive."' },
+      { word: 'Blocking',    ph: '/ˈblɒkɪŋ/',     def: 'In code reviews: a required change before merging.', ex: '"blocking: this will cause a race condition in production."' },
+      { word: 'Sprint',      ph: '/sprɪnt/',       def: 'Fixed time period (1-2 weeks) for completing specific work in agile.', ex: '"We\'ll pick this up in the next sprint — not in scope."' },
+      { word: 'Standup',     ph: '/ˈstændʌp/',    def: 'Daily short team meeting: what you did, doing, and blockers.', ex: '"Quick standup at 9 — keep it under 15 minutes."' },
+      { word: 'Greenfield',  ph: '/ˈɡriːnfiːld/', def: 'A project started from scratch with no legacy code.',  ex: '"It\'s a greenfield project — we can choose the stack."' },
+      { word: 'Scope creep', ph: '/',              def: 'Gradual, uncontrolled expansion of a project\'s scope.', ex: '"We need to push back — this is scope creep."' },
+      { word: 'LGTM',        ph: '/',              def: 'Looks Good To Me — standard approval in code reviews.', ex: '"LGTM — nice clean implementation."' },
+      { word: 'Bus factor',  ph: '/',              def: 'How many team members can be lost before a project fails.', ex: '"The bus factor on this module is 1 — only Dan knows it."' },
+    ],
+  },
+
+  grammar: {
+    everyday: [
+      { type: 'Present perfect vs simple past', q: 'Choose the correct British English sentence:', opts: ['I have been in London since five years.','I have lived in London for five years.','I lived in London since five years.','I am living in London for five years.'], c: 1, f: '"For" + duration, "since" + point in time. Present perfect + "for" is the natural British form. One of the most common errors for Spanish speakers.' },
+      { type: 'Indirect requests (British style)', q: 'Your UK flatmate wants you to stop leaving dishes in the sink. The most natural British way to say this is:', opts: ['"Stop leaving dishes in the sink."','"Could you not leave dishes in the sink?"','"You always leave dishes in the sink."','"I hate when you leave dishes in the sink."'], c: 1, f: '"Could you not..." is a polite but firm indirect request — very common in British culture. Direct commands sound rude to British ears.' },
+      { type: 'UK vocabulary', q: 'You feel unwell and need to see a doctor. In the UK you call your:', opts: ['Hospital','Clinic','GP surgery','Health centre'], c: 2, f: 'GP (General Practitioner) is your local doctor. Their office is a "GP surgery". You register with one when you arrive in the UK — this is your gateway to the NHS.' },
+      { type: 'UK vs US English', q: 'In the UK, "I\'m going to the chemist" means:', opts: ['Going to a chemistry lab','Going to a pharmacy','Going to a supermarket','Going to a doctor'], c: 1, f: '"Chemist" = pharmacy in British English. Other key differences: shop/store, post/mail, mobile/cell phone, holiday/vacation, flat/apartment.' },
+      { type: 'Conditionals', q: 'Your landlord says "If I were you, I\'d get contents insurance." This means:', opts: ['You must get insurance immediately','They recommend you get insurance','Insurance is included in rent','You legally need insurance'], c: 1, f: '"If I were you, I\'d..." is the standard British way of giving advice. Unreal conditional (subjunctive "were" not "was") — very common in UK daily conversation.' },
+    ],
+    vet: [
+      { type: 'Client communication', q: 'A client says their dog has been "off its food" for two days. You understand:', opts: ['The dog ate spoiled food','The dog has reduced appetite','The dog is food aggressive','The dog vomited food'], c: 1, f: '"Off its food" = reduced appetite/not eating normally. Other common client expressions: "off-colour" (unwell), "not himself" (behaving differently), "bringing up" (vomiting).' },
+      { type: 'Clinical English', q: 'Complete what a UK vet would say: "We\'re going to run _____ to check her kidney values."', opts: ['an exam','some bloods','a blood','some analysis'], c: 1, f: '"Run some bloods" is the most natural UK clinical phrase. "Bloods" (plural) = blood tests. "Run" is the standard verb. "Analysis" sounds overly translated to British ears.' },
+      { type: 'Prognosis language', q: 'Which is the most appropriate way to break difficult news to a UK client?', opts: ['"Your dog is going to die."','"I\'m afraid the prognosis is very poor — we need to discuss options."','"Maybe your dog could possibly not recover."','"I cannot say what will happen."'], c: 1, f: 'UK vets are honest but compassionate. "I\'m afraid..." softens bad news. "We need to discuss options" opens the conversation. Never be vague (option 3) or abrupt (option 1).' },
+      { type: 'Clinical notes', q: 'In a UK clinical record, "PU/PD" means:', opts: ['Partial use/Partial dose','Polyuria/Polydipsia','Post-op/Pre-discharge','Pulse/Pressure differential'], c: 1, f: 'PU/PD (polyuria/polydipsia — excess urination/thirst) is universal in English clinical notes. Key sign for diabetes, Cushing\'s, renal disease. Also key: BAR, QAR, TPR, BCS.' },
+      { type: 'Consent language', q: 'Before surgery, a UK vet says "Are you happy for us to proceed?" This means:', opts: ['Are you emotionally OK with this?','Do you give consent to proceed?','Are you happy about the situation?','Is the price acceptable?'], c: 1, f: '"Are you happy for us to..." is the standard British way of asking for consent. It sounds casual but is legally significant. Response: "Yes, please go ahead" or "Yes, I consent."' },
+    ],
+    tech: [
+      { type: 'UK workplace English', q: 'Your tech lead says "let\'s table this for now" in a meeting. They mean:', opts: ['Discuss it now','Postpone it','Delete it from backlog','Document it'], c: 1, f: 'Critical: in British English "table" = postpone/set aside. In American English it means the opposite. This confuses many people in UK teams. Also: "park it", "put a pin in it" = same meaning.' },
+      { type: 'Code review register', q: 'Which code review comment sounds most natural in a UK team?', opts: ['"This is wrong, fix it."','"nit: this variable name could be more descriptive — maybe `userConfig`?"','"I think perhaps maybe this could potentially be improved."','"IMPORTANT: change this variable name."'], c: 1, f: '"nit:" signals it\'s minor/optional. Suggesting a specific alternative ("maybe `userConfig`?") is professional. Option 1 is too blunt; option 3 is over-hedged; option 4 is too aggressive for a style issue.' },
+      { type: 'Standup language', q: 'The most natural way to report your work in a UK standup:', opts: ['"Yesterday I did the login feature."','"Yesterday I worked in the login feature."','"I picked up the login feature yesterday and it\'s done."','"The login feature was made by me yesterday."'], c: 2, f: '"Picked up" is natural UK tech language for starting/working on a task. "It\'s done" is clean. Option 1 is acceptable but "did" is vague. Option 2 has wrong preposition ("in" → "on"). Option 4 is passive and sounds odd.' },
+      { type: 'Professional Slack', q: 'Most natural Slack message to your UK dev team:', opts: ['"I will work in this feature since tomorrow."','"I\'ll be picking up this feature from tomorrow."','"I work on this feature from tomorrow on."','"I am going to work this feature starting tomorrow."'], c: 1, f: '"I\'ll be picking up" is natural UK workplace phrasing. "From tomorrow" is cleaner than "starting tomorrow". The others have preposition errors ("in"/"on"), tense issues, or sound overly formal.' },
+      { type: 'Expressing disagreement', q: 'You disagree with a technical decision in a UK team meeting. The most professional response:', opts: ['"That\'s wrong."','"I don\'t think that\'s a good idea."','"I see where you\'re coming from, but have we considered the performance implications?"','"OK fine, whatever you want."'], c: 2, f: 'UK professional culture values constructive disagreement. Acknowledge their point first ("I see where you\'re coming from"), then raise your concern as a question. Never dismissive (1,4) or simply negative (2) without an alternative.' },
+    ],
+  },
+
+  speaking: {
+    everyday: [
+      { phrase: "The boiler's on the blink again — I've already rung the landlord.", tip: 'Key words: "blink" (bliŋk), "rung" (past of ring in British English). The "r" in "blink" is softer than American.' },
+      { phrase: "Could you not leave the washing up in the sink? I'd really appreciate it.", tip: 'British indirect request. Natural stress: "COULD you NOT leave" — emphasis on could and not.' },
+      { phrase: "I'm absolutely gutted — I didn't get the flat in Hackney.", tip: '"Gutted" (ˈɡʌtɪd) — the "u" sounds like the "u" in "cup", not "put".' },
+      { phrase: "Fancy a cheeky pint after work? There\'s a decent pub just round the corner.", tip: '"Round" not "around" — very British. "Fancy" as a verb = "do you want". Natural and casual.' },
+      { phrase: "I need to pop to the chemist — won\'t be a minute.", tip: '"Pop" = go quickly (very British). "Won\'t be a minute" = back soon. Short vowels throughout.' },
+    ],
+    vet: [
+      { phrase: "Based on the examination, I suspect gastroenteritis. I'd like to run some bloods to rule out anything more serious.", tip: 'Natural stress: "Based on the examinATION", "I SUSpect". "Rule out" is essential clinical English.' },
+      { phrase: "I\'m afraid the prognosis is quite guarded — I want to be honest with you about that.", tip: '"I\'m afraid" softens bad news. "Quite guarded" — "quite" in UK English intensifies (unlike US where it softens).' },
+      { phrase: "Are you happy for us to keep her in overnight for observation?", tip: '"Are you happy for us to..." = asking consent in UK clinical style. Essential phrase.' },
+      { phrase: "The patient presented with acute dyspnoea and bilateral pleural effusion.", tip: 'dyspnoea (dɪspˈniːə), pleural (ˈplʊərəl), effusion (ɪˈfjuːʒən) — stress on second syllable.' },
+      { phrase: "I\'d recommend a follow-up in a fortnight to reassess the medication.", tip: '"Fortnight" (ˈfɔːtnaɪt) — two weeks. Essential UK word. "Reassess" — re-aSESS, stress on last syllable.' },
+    ],
+    tech: [
+      { phrase: "I picked up the authentication feature yesterday — it\'s nearly done, just writing tests.", tip: 'Natural standup phrasing. "Picked up" (started), "nearly done" (almost finished), "just writing" = currently doing.' },
+      { phrase: "I see where you\'re coming from, but have we considered the performance implications of this approach?", tip: 'Professional disagreement. Natural stress: "where you\'re COMING from", "have WE considered".' },
+      { phrase: "This is a nit, but I think we could make this function name a bit more descriptive.", tip: '"A bit more" is quintessential British understatement for "much more". "Nit" signals non-blocking.' },
+      { phrase: "Let\'s park the refactor discussion for now and revisit it in the next sprint planning.", tip: '"Park" (postpone) — British workplace. "Revisit" not "review" in this context. Clean professional register.' },
+      { phrase: "I\'ve got a blocker on the payment integration — the third-party API docs are out of date.", tip: '"I\'ve got a blocker" — natural standup language. "Third-party" (ˈθɜːd ˈpɑːti) — both words stressed.' },
+    ],
+  },
+
+  usuk: [
+    { us: 'Trash can',         uk: 'Rubbish bin',               ctx: 'Telling clients what to do with medication packaging.' },
+    { us: 'Elevator',          uk: 'Lift',                      ctx: 'The practice is on the 2nd floor.' },
+    { us: 'Apartment',         uk: 'Flat',                      ctx: 'When UK colleagues ask where you live.' },
+    { us: 'Vacation',          uk: 'Holiday',                   ctx: '"I\'m off on ___ next week."' },
+    { us: 'Cell phone',        uk: 'Mobile',                    ctx: '"Can I take your ___ number?"' },
+    { us: 'Drugstore',         uk: 'Chemist',                   ctx: 'Where to send clients for prescriptions.' },
+    { us: 'Pants',             uk: 'Trousers (pants = underwear!)', ctx: 'Critical: "pants" in UK means underwear.' },
+    { us: 'Gotten',            uk: 'Got',                       ctx: '"I\'ve got / I\'ve ___ better."' },
+    { us: 'Fall',              uk: 'Autumn',                    ctx: '"The practice gets busy in ___."' },
+    { us: 'Sidewalk',          uk: 'Pavement',                  ctx: '"Be careful on the ___ — it\'s icy."' },
+    { us: 'Mom',               uk: 'Mum',                       ctx: '"Is it OK if I call your ___?"' },
+    { us: 'Band-aid',          uk: 'Plaster',                   ctx: 'Small wound dressing.' },
+    { us: 'Can I get…',        uk: 'Could I have…',             ctx: 'Ordering in a café — "Can I get" sounds very American.' },
+    { us: 'Freeway',           uk: 'Motorway',                  ctx: '"Take the ___ north towards Birmingham."' },
+    { us: 'Schedule',          uk: 'Diary / Rota',              ctx: '"Check my ___ for a free slot."' },
+    { us: 'I could care less', uk: 'I couldn\'t care less',     ctx: 'The US version is technically wrong — UK form is correct.' },
   ],
 
-  speakingPhrases: [
-    {
-      track: 'General', color: '#5F5E5A',
-      label: 'Everyday British phrase',
-      phrase: 'The boiler\'s on the blink again — I\'ve already rung the landlord about it.',
-      tip: 'Focus on: "blink" (bliŋk), "rung" (rʌŋ) — past tense of "ring" in British English'
-    },
-    {
-      track: 'Veterinary', color: '#0F6E56',
-      label: 'Clinical pronunciation',
-      phrase: 'The patient presented with acute gastroenteritis and mild dehydration.',
-      tip: 'Focus on: "gastroenteritis" (ˌɡæstrəʊˌentəˈraɪtɪs) — stress on -rai-tis'
-    },
-    {
-      track: 'Tech', color: '#185FA5',
-      label: 'Tech meeting phrase',
-      phrase: 'I\'ll pick that up after the sprint review — let\'s park it for now.',
-      tip: 'Natural rhythm: emphasis on "pick UP", "sprint RE-view", "park IT"'
-    },
-    {
-      track: 'Veterinary', color: '#0F6E56',
-      label: 'Client communication',
-      phrase: 'I\'d like to keep her in for observation overnight, if that\'s alright with you.',
-      tip: 'British vets use "alright with you" to soften clinical decisions — very important with worried owners'
-    },
-    {
-      track: 'General', color: '#5F5E5A',
-      label: 'Social British English',
-      phrase: 'Shall we grab a coffee after the standup? There\'s a decent place just round the corner.',
-      tip: '"Shall we" is very British. "Round the corner" not "around the corner". "Decent" = good/acceptable'
-    },
-    {
-      track: 'Tech', color: '#185FA5',
-      label: 'Code review language',
-      phrase: 'This is a nit, but I think we could make this function name a bit more descriptive.',
-      tip: '"A bit more" is quintessentially British understatement. Direct equivalent of "much more"'
-    },
-  ],
-
-  roleplayScenarios: [
-    {
-      id: 'vet-client',
-      name: 'Worried dog owner',
-      track: 'Veterinary',
-      color: '#0F6E56',
-      badgeBg: '#E1F5EE',
-      preview: 'Golden Retriever, limping since yesterday, owner very worried...',
-      system: `You are a worried British dog owner. Your Golden Retriever called Biscuit has been limping on his front left leg for 2 days and won't put weight on it. You are speaking to a vet at the consultation.
-
-Be realistic: use everyday British expressions (not medical terms), show genuine worry, ask the questions a real pet owner would ask. Use expressions like "he's just not himself", "I'm ever so worried", "will he be alright?". Keep responses to 2-3 sentences. Speak only in English.`,
-      opening: "Hello, I'm ever so worried about my dog Biscuit. He's been limping on his front leg since yesterday morning and won't put any weight on it at all — is it serious?"
-    },
-    {
-      id: 'tech-standup',
-      name: 'Morning standup',
-      track: 'Tech',
-      color: '#185FA5',
-      badgeBg: '#E6F1FB',
-      preview: 'Daily standup with your UK dev team, senior dev asking for updates...',
-      system: `You are a British senior developer called James running a morning standup. The user is a new team member who has just joined from Spain. Be professional but casual and friendly. Use real dev workplace language naturally: "blockers", "picking up", "sprint", "backlog", etc. Ask about what they did yesterday, what they're working on today, and if they have any blockers. Keep responses short and realistic. Speak only in English.`,
-      opening: "Morning! Right, let's crack on — what did you get done yesterday, and what are you picking up today?"
-    },
-    {
-      id: 'uk-landlord',
-      name: 'Flat viewing in London',
-      track: 'General',
-      color: '#633806',
-      badgeBg: '#FAEEDA',
-      preview: 'Viewing a flat in London, landlord asking about your situation...',
-      system: `You are a London landlord showing a one-bedroom flat in Hackney to a prospective tenant who has just moved from Spain and works as a vet. Be friendly but business-like. Use British expressions naturally. Ask about employment contract, references, and when they want to move in. Mention things like council tax, the letting agency, deposit. Keep responses short and realistic. Speak only in English.`,
-      opening: "Hi there, come in! So you're looking to move in from the first of July, is that right? Have you rented in London before, or would this be your first time?"
-    },
-    {
-      id: 'vet-colleague',
-      name: 'Handover with a colleague',
-      track: 'Veterinary',
-      color: '#0F6E56',
-      badgeBg: '#E1F5EE',
-      preview: 'End-of-shift handover with a UK vet colleague...',
-      system: `You are a British vet nurse called Sophie doing an end-of-shift handover at a mixed practice in Bristol. The user is the incoming vet taking over. Ask about specific patients, medications due, and anything that needs monitoring overnight. Use clinical abbreviations naturally (BAR, QAR, TPR, etc.) and British clinical communication style. Keep responses concise and professional. Speak only in English.`,
-      opening: "Hi, glad you're here — it's been a busy one. So, we've got three inpatients to hand over. Shall I start with the spaniel in bay 2? He's the most pressing."
-    },
-  ],
-
-  usukPairs: [
-    { us: 'Trash can', uk: 'Rubbish bin', context: 'When telling clients what to do with medication packaging.' },
-    { us: 'Elevator', uk: 'Lift', context: 'The vet practice is on the 2nd floor — tell the client where to go.' },
-    { us: 'Apartment', uk: 'Flat', context: 'When your UK colleagues ask where you live.' },
-    { us: 'Vacation', uk: 'Holiday', context: '"I\'m off on ___ next week."' },
-    { us: 'Drugstore / pharmacy', uk: 'Chemist', context: 'Where to send clients to collect prescriptions.' },
-    { us: 'Cell phone', uk: 'Mobile', context: '"Can I take your ___ number?"' },
-    { us: 'Sidewalk', uk: 'Pavement', context: '"Be careful on the ___ — it\'s icy today."' },
-    { us: 'Schedule', uk: 'Diary / Timetable', context: '"Check my ___ for a free appointment slot."' },
-    { us: 'Gotten', uk: 'Got', context: '"I\'ve got / I\'ve ___ better" — British English uses "got".' },
-    { us: 'Fall', uk: 'Autumn', context: '"The practice gets very busy in ___."' },
-    { us: 'Freeway / Highway', uk: 'Motorway', context: '"Take the ___ north towards Birmingham."' },
-    { us: 'Truck', uk: 'Lorry', context: 'Large vehicle on the road.' },
-    { us: 'Mom', uk: 'Mum', context: '"Is it OK if I call your ___ to discuss the treatment?"' },
-    { us: 'Band-aid', uk: 'Plaster', context: 'Small wound dressing.' },
-    { us: 'Can I get...', uk: 'Could I have...', context: 'Ordering in a café or asking for something politely.' },
-    { us: 'Pants', uk: 'Trousers (pants = underwear!)', context: 'Very important — "pants" in the UK means underwear.' },
-  ],
-
-  trackDetails: [
-    {
-      name: 'General UK',
-      level: 'B2',
-      color: '#888780',
-      desc: 'Daily life, culture, bureaucracy, social English',
-      pct: 62,
-      subgoals: [
-        { name: 'NHS & GP registration', level: 'B2' },
-        { name: 'Renting a flat', level: 'B1+' },
-        { name: 'British idioms & expressions', level: 'B1' },
-        { name: 'Regional UK accents', level: 'A2+' },
-        { name: 'Formal correspondence', level: 'B2' },
-      ]
-    },
-    {
-      name: 'Veterinary clinical',
-      level: 'B1',
-      color: '#1D9E75',
-      desc: 'Dog & cat consultations, clinical notes, client comms',
-      pct: 38,
-      subgoals: [
-        { name: 'Client communication', level: 'B1+' },
-        { name: 'Clinical terminology', level: 'B1' },
-        { name: 'Clinical notes in English', level: 'A2+' },
-        { name: 'Emergency scenarios', level: 'A2' },
-        { name: 'Referral letters', level: 'B1' },
-      ]
-    },
-    {
-      name: 'Tech & Dev',
-      level: 'B1',
-      color: '#378ADD',
-      desc: 'Dev, AI, certifications, remote teams, interviews',
-      pct: 35,
-      subgoals: [
-        { name: 'Code review language', level: 'B2' },
-        { name: 'Tech interview English', level: 'B1' },
-        { name: 'Slack / async comms', level: 'B1+' },
-        { name: 'Technical documentation', level: 'B1' },
-        { name: 'Certification exam English', level: 'B1' },
-      ]
-    },
-    {
-      name: 'US → UK',
-      level: 'Custom',
-      color: '#D85A30',
-      desc: 'Deamericanise vocabulary, pronunciation & register',
-      pct: 20,
-      subgoals: [
-        { name: 'Vocabulary differences', level: 'In progress' },
-        { name: 'Vowel sounds (US vs UK)', level: 'In progress' },
-        { name: 'British vs American register', level: 'In progress' },
-        { name: 'Spelling differences', level: 'To start' },
-      ]
-    },
+  roleplay: [
+    { id: 'landlord',    track: 'everyday', name: 'Flat viewing',        icon: 'ti-building', desc: 'London landlord, first viewing', sys: `You are a London landlord showing a one-bedroom flat in Hackney to Luis, a Spanish vet who has just moved to the UK. Be friendly but business-like. Use British expressions naturally (fortnight, letting agency, council tax, deposit). Ask about his employment, references, and move-in date. Keep responses to 2-3 sentences. Speak only in English.`, open: "Hi there, come in! So you're looking to move in from the first of July, is that right? Have you rented in London before?" },
+    { id: 'nhs',         track: 'everyday', name: 'GP registration',     icon: 'ti-heart-rate', desc: 'Register with your local NHS doctor', sys: `You are a receptionist at an NHS GP surgery in London. Luis, a new Spanish resident, has come to register as a patient. Ask for proof of address, his NHS number (he won't have one yet — explain he needs to apply), and book him an initial appointment. Be helpful but slightly busy/rushed — realistic NHS reception. 2-3 sentences. English only.`, open: "Hello, how can I help? Are you looking to register as a new patient with us?" },
+    { id: 'pub',         track: 'everyday', name: 'Pub conversation',    icon: 'ti-beer', desc: 'Chat with British colleagues after work', sys: `You are a friendly British colleague called James who works at the same vet practice as Luis. You're having a pint at the local pub after work. Be casual, use British expressions naturally, ask about how he's settling in, talk about football or weekend plans. Make it a genuine friendly conversation. Very informal register. 2-3 sentences. English only.`, open: "Alright! Glad you could make it. What are you having — I'll get these in. You settling in alright?" },
+    { id: 'vet-client',  track: 'vet',      name: 'Worried dog owner',   icon: 'ti-dog', desc: 'Golden Retriever limping, owner very worried', sys: `You are a worried British dog owner. Your Golden Retriever called Biscuit has been limping on his front left leg for 2 days and won't put weight on it. You are at the vet consultation with Luis. Use everyday British expressions (not medical terms), show genuine worry, ask questions a real pet owner would ask: "will he be alright?", "is it serious?", "how much will it cost?". Keep responses to 2-3 sentences. English only.`, open: "Hello, I'm ever so worried about Biscuit. He's been limping since yesterday morning and won't put any weight on it at all — is it serious?" },
+    { id: 'vet-emergency', track: 'vet',    name: 'Emergency call',      icon: 'ti-urgent', desc: 'Owner calling about suspected poisoning', sys: `You are a panicked British dog owner calling the vet practice. Your Labrador has eaten what you think is rat poison from the garden shed about 30 minutes ago. You're scared and not always making sense. Use panicked, fragmented speech like "he's just eaten — I found him — what do I do?" Give Luis (the vet) the information but make him work to get it clearly. 2-3 sentences. English only.`, open: "Hello?! I need help — my dog, he's — I think he's eaten something from the shed, I found him sniffing around and now he's — what do I do?!" },
+    { id: 'vet-handover', track: 'vet',     name: 'Shift handover',      icon: 'ti-transfer', desc: 'End-of-shift with a UK vet nurse', sys: `You are Sophie, a British vet nurse doing an end-of-shift handover to Luis at a Bristol practice. You have 3 inpatients to hand over. Use clinical abbreviations naturally (BAR, TPR, PU/PD, IV fluids, etc.). Be professional and efficient — you want to get home. Give clinical details and ask Luis if he has questions. 2-3 sentences. English only.`, open: "Ah good, you're here. Right, three inpatients tonight — shall I start with the spaniel in bay 2? He's the most pressing." },
+    { id: 'standup',     track: 'tech',     name: 'Morning standup',     icon: 'ti-device-laptop', desc: 'Daily standup with your UK dev team', sys: `You are James, a British senior developer running a morning standup. Luis is a new team member from Spain. Be professional but casual. Use real dev language: tickets, sprint, blockers, picking up, backlog. Ask what he did yesterday, what he's doing today, and if he has blockers. Challenge him a bit if his answers are vague. 2-3 sentences. English only.`, open: "Morning! Right, let's crack on — Luis, you're up first. What did you get done yesterday?" },
+    { id: 'pr-review',   track: 'tech',     name: 'PR code review',      icon: 'ti-code', desc: 'Reviewing a pull request with a colleague', sys: `You are Emma, a British developer giving Luis feedback on his pull request for a new feature. Give constructive code review feedback using real PR language (nit, blocking, LGTM, suggestion, etc.). Ask him to explain certain implementation choices. Be direct but friendly — UK professional tech culture. 2-3 sentences. English only.`, open: "Hey, I've had a look at your PR — nice work overall, the logic is clean. I've left a couple of comments. Can you talk me through why you went with this approach for the state management?" },
+    { id: 'tech-interview', track: 'tech',  name: 'Tech interview',      icon: 'ti-briefcase', desc: 'Technical interview at a UK company', sys: `You are a British interviewer at a London tech company interviewing Luis for a senior developer role. Ask real technical interview questions about his experience with mobile development, AI/ML, architecture decisions. Be professional and slightly formal. Follow up on his answers with deeper questions. Push him to be specific and give concrete examples. 2-3 sentences. English only.`, open: "Thanks for coming in, Luis. So, tell me a bit about your background — I see you've worked across mobile and AI. What would you say has been your most technically challenging project?" },
   ],
 
   plan: [
-    { month: 'Jun – Jul 2026', focus: 'Vocabulary intensive across 3 tracks · Deamericanise · British listening daily', current: true },
-    { month: 'Aug – Sep 2026', focus: 'Speaking 50% of session time · Vet & tech simulations · Role play AI' },
-    { month: 'Oct – Nov 2026', focus: 'Regional UK accents · Professional writing · Real technical texts' },
-    { month: 'Dec – Jan 2027', focus: 'Full simulations: consultation, tech interview, day in UK life' },
-  ]
+    { months: 'Jun – Jul 2026', focus: 'Vocabulary intensive across all 3 tracks · Deamericanise · British listening daily', current: true },
+    { months: 'Aug – Sep 2026', focus: 'Speaking 50% of each session · Vet & tech simulations · AI role play daily' },
+    { months: 'Oct – Nov 2026', focus: 'Regional UK accents · Professional writing · Real clinical & technical texts' },
+    { months: 'Dec – Jan 2027', focus: 'Full simulations: complete consultation, full tech interview, day in UK life' },
+  ],
 };

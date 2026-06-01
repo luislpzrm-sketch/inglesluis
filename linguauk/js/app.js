@@ -1,15 +1,12 @@
-const App = (() => {
-  let sessionStartTime = null;
-  let todayMins = parseInt(localStorage.getItem('linguauk_mins_today') || '0');
-  let streak = parseInt(localStorage.getItem('linguauk_streak') || '1');
-  let lastDate = localStorage.getItem('linguauk_last_date') || '';
+const Nav = (() => {
+  let currentTrack = null;
+  let sessionStart = null;
 
   function init() {
-    updateStreak();
-    setDate();
-    fillProfile();
-    fillTracks();
+    updateDate();
+    updateStats();
     fillPlan();
+    updateStreakDisplay();
 
     setTimeout(() => {
       document.getElementById('meter-fill').style.width = '34%';
@@ -19,134 +16,148 @@ const App = (() => {
 
     if (window.speechSynthesis) window.speechSynthesis.getVoices();
 
-    // iOS install banner
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isStandalone = window.navigator.standalone;
-    const dismissed = localStorage.getItem('linguauk_banner_dismissed');
-    if (isIOS && !isStandalone && !dismissed) showInstallBanner();
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.navigator.standalone;
+    if (isIOS && !localStorage.getItem('banner_dismissed')) showInstallBanner();
+
+    // Build track detail pages
+    DATA.tracks.forEach(t => buildTrackPage(t));
   }
 
-  function updateStreak() {
-    const today = new Date().toDateString();
-    if (lastDate !== today) {
-      const yesterday = new Date(Date.now() - 86400000).toDateString();
-      if (lastDate !== yesterday && lastDate !== '') streak = 1;
-      else if (lastDate !== '') streak++;
-      localStorage.setItem('linguauk_streak', streak);
-      localStorage.setItem('linguauk_last_date', today);
-      localStorage.setItem('linguauk_mins_today', '0');
-      todayMins = 0;
-    }
-    document.getElementById('streak-num').textContent = streak;
-    document.getElementById('stat-streak').textContent = streak;
-    document.getElementById('stat-mins').textContent = todayMins;
-  }
-
-  function setDate() {
+  function updateDate() {
     const opts = { weekday: 'long', month: 'long', day: 'numeric' };
     document.getElementById('home-date').textContent = new Date().toLocaleDateString('en-GB', opts);
+  }
+
+  function updateStreakDisplay() {
+    const streak = parseInt(localStorage.getItem('luk_streak') || '1');
+    document.getElementById('streak-num').textContent = streak;
+    document.getElementById('stat-streak').textContent = streak;
+  }
+
+  function updateStats() {
     const jan27 = new Date('2027-01-01');
     const days = Math.ceil((jan27 - new Date()) / 86400000);
     document.getElementById('stat-days').textContent = days;
-  }
-
-  function goScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    const navMap = { home: 'nav-home', practice: 'nav-practice', 'tracks-screen': 'nav-tracks', profile: 'nav-profile', 'module-screen': 'nav-practice' };
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    if (navMap[id]) document.getElementById(navMap[id]).classList.add('active');
-    window.scrollTo(0, 0);
-  }
-
-  function startSession() {
-    sessionStartTime = Date.now();
-    openModule('grammar');
-  }
-
-  function openModule(type) {
-    if (!sessionStartTime) sessionStartTime = Date.now();
-    goScreen('module-screen');
-    const c = document.getElementById('module-content');
-    switch(type) {
-      case 'grammar':  Modules.renderGrammar(c); break;
-      case 'vocab':    Modules.renderVocab(c); break;
-      case 'speak':    Modules.renderSpeak(c); break;
-      case 'roleplay': Modules.renderRoleplayPicker(c); break;
-      case 'writing':  Modules.renderWriting(c); break;
-      case 'usuk':     Modules.renderUSUK(c); break;
-    }
-  }
-
-  function backToPractice() {
-    if (sessionStartTime) {
-      const mins = Math.round((Date.now() - sessionStartTime) / 60000);
-      todayMins += mins;
-      localStorage.setItem('linguauk_mins_today', todayMins);
-      document.getElementById('stat-mins').textContent = todayMins;
-      sessionStartTime = null;
-    }
-    goScreen('practice');
-  }
-
-  function fillTracks() {
-    const c = document.getElementById('tracks-content');
-    c.innerHTML = DATA.trackDetails.map(t => `
-      <div class="track-detail-card" style="margin-bottom:12px">
-        <div class="track-detail-header">
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="width:10px;height:10px;border-radius:50%;background:${t.color};flex-shrink:0"></div>
-            <span class="track-detail-name">${t.name}</span>
-          </div>
-          <span class="track-detail-level">${t.level}</span>
-        </div>
-        <div class="track-detail-sub">${t.desc}</div>
-        <div class="track-detail-bar-bg">
-          <div class="track-detail-bar-fill" style="width:${t.pct}%;background:${t.color}"></div>
-        </div>
-        ${t.subgoals.map(s => `
-          <div class="track-subgoal">
-            <span>${s.name}</span>
-            <span class="track-subgoal-level">${s.level}</span>
-          </div>
-        `).join('')}
-      </div>
-    `).join('');
+    document.getElementById('stat-mins').textContent = localStorage.getItem('luk_mins_today') || '0';
   }
 
   function fillPlan() {
     document.getElementById('plan-list').innerHTML = DATA.plan.map(p => `
       <div class="plan-item${p.current ? ' current' : ''}">
-        <div class="plan-month">${p.month}${p.current ? ' · Now' : ''}</div>
+        <div class="plan-month">${p.months}${p.current ? ' · Now' : ''}</div>
         <div class="plan-focus">${p.focus}</div>
       </div>
     `).join('');
   }
 
-  function fillProfile() {
-    const jan27 = new Date('2027-01-01');
-    const days = Math.ceil((jan27 - new Date()) / 86400000);
-    document.getElementById('stat-days').textContent = days;
+  function buildTrackPage(track) {
+    const mods = DATA.modules[track.id] || [];
+    const page = document.getElementById('track-' + track.id);
+    if (!page) return;
+
+    page.querySelector('.topbar-title').textContent = track.name;
+    page.querySelector('.topbar-sub').textContent = `Level ${track.level} · Active`;
+
+    const grid = page.querySelector('.module-grid');
+    grid.innerHTML = mods.map(m => `
+      <div class="module-card" onclick="Nav.openModule('${track.id}', '${m.id}')">
+        <i class="ti ${m.icon} module-icon" style="color:${track.color}" aria-hidden="true"></i>
+        <div class="module-name">${m.name}</div>
+        <div class="module-desc">${m.desc}</div>
+        ${m.ai ? `<span class="module-badge" style="background:${track.light};color:${track.color}">AI powered</span>` : ''}
+        ${m.badge ? `<span class="module-badge" style="background:#FAECE7;color:#993C1D">${m.badge}</span>` : ''}
+      </div>
+    `).join('');
+  }
+
+  function goScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById(id);
+    if (el) el.classList.add('active');
+    updateNav(id);
+    window.scrollTo(0, 0);
+  }
+
+  function updateNav(screenId) {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const map = {
+      'home': 'nav-home',
+      'track-everyday': 'nav-everyday',
+      'track-vet': 'nav-vet',
+      'track-tech': 'nav-tech',
+      'profile': 'nav-profile',
+      'module-screen': null,
+    };
+    const navId = map[screenId];
+    if (navId) document.getElementById(navId)?.classList.add('active');
+  }
+
+  function openModule(trackId, moduleId) {
+    currentTrack = trackId;
+    sessionStart = sessionStart || Date.now();
+    goScreen('module-screen');
+    const c = document.getElementById('module-content');
+
+    switch(moduleId) {
+      case 'ev-vocab':
+      case 'vet-vocab':
+      case 'tech-vocab':   Modules.renderVocab(trackId, c); break;
+      case 'ev-grammar':
+      case 'vet-grammar':
+      case 'tech-grammar': Modules.renderGrammar(trackId, c); break;
+      case 'ev-speak':
+      case 'vet-speak':
+      case 'tech-speak':   Modules.renderSpeak(trackId, c); break;
+      case 'ev-role':
+      case 'vet-client':
+      case 'vet-handover':
+      case 'tech-stand':
+      case 'tech-review':
+      case 'tech-inter':   Modules.renderRoleplayPicker(trackId, c); break;
+      case 'vet-notes':
+      case 'ev-write':
+      case 'tech-write':   Modules.renderWriting(trackId, c); break;
+      case 'vet-proto':    Modules.renderProtocolCheck(c); break;
+      case 'usuk':         Modules.renderUSUK(c); break;
+      default:             Modules.renderVocab(trackId, c);
+    }
+  }
+
+  function backFromModule() {
+    if (sessionStart) {
+      const mins = Math.max(1, Math.round((Date.now() - sessionStart) / 60000));
+      const prev = parseInt(localStorage.getItem('luk_mins_today') || '0');
+      localStorage.setItem('luk_mins_today', prev + mins);
+      document.getElementById('stat-mins').textContent = prev + mins;
+      sessionStart = null;
+    }
+    if (currentTrack) goScreen('track-' + currentTrack);
+    else goScreen('home');
+  }
+
+  function startSession() {
+    sessionStart = Date.now();
+    goScreen('track-everyday');
   }
 
   function showInstallBanner() {
-    const section = document.querySelector('#home .section:first-of-type');
     const banner = document.createElement('div');
     banner.className = 'install-banner';
-    banner.style.marginTop = '16px';
+    banner.id = 'install-banner';
     banner.innerHTML = `
-      <div class="install-text"><strong>Install on iPhone</strong><br>Tap Share → "Add to Home Screen"</div>
-      <button class="install-dismiss" onclick="App.dismissBanner(this.parentElement)">Got it</button>
+      <div class="install-text"><strong>Install on iPhone</strong> — tap Share → "Add to Home Screen"</div>
+      <button class="install-dismiss" onclick="Nav.dismissBanner()">✕</button>
     `;
-    document.querySelector('#home').insertBefore(banner, document.querySelector('#home .section'));
+    const home = document.getElementById('home');
+    home.insertBefore(banner, home.querySelector('.section'));
   }
 
-  function dismissBanner(el) {
-    el.remove();
-    localStorage.setItem('linguauk_banner_dismissed', '1');
+  function dismissBanner() {
+    document.getElementById('install-banner')?.remove();
+    localStorage.setItem('banner_dismissed', '1');
   }
 
-  return { init, goScreen, openModule, startSession, backToPractice, dismissBanner };
+  return { init, goScreen, openModule, backFromModule, startSession, dismissBanner };
 })();
 
-document.addEventListener('DOMContentLoaded', App.init);
+document.addEventListener('DOMContentLoaded', Nav.init);
