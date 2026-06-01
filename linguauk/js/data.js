@@ -155,3 +155,68 @@ const DATA = {
     { months: 'Dec – Jan 2027', focus: 'Full simulations: complete consultation, full tech interview, day in UK life' },
   ],
 };
+
+// ─── FILL IN THE BLANK ───────────────────────────────────────────────────────
+DATA.fillBlank = {
+  everyday: [
+    { sentence: "I've lived in London ___ three years.", answer: "for", options: ["for","since","during","from"], tip: '"For" + duration. "Since" + point in time (since 2021, since January).' },
+    { sentence: "The boiler is on the ___ again — I'll call the landlord.", answer: "blink", options: ["blink","break","stop","fritz"], tip: '"On the blink" = broken/not working. Very common British expression.' },
+    { sentence: "Could you ___ leave your shoes at the door?", answer: "not", options: ["not","please","avoid","stop"], tip: '"Could you not..." is a polite British indirect request. Much softer than "don\'t".' },
+    { sentence: "I need to pop to the ___ to pick up my prescription.", answer: "chemist", options: ["chemist","drugstore","pharmacy shop","medicine store"], tip: '"Chemist" = pharmacy in British English. "Pop to" = go quickly.' },
+    { sentence: "She was absolutely ___ when she didn't get the job.", answer: "gutted", options: ["gutted","sad","devastated","bummed"], tip: '"Gutted" = very disappointed. Quintessentially British.' },
+  ],
+  vet: [
+    { sentence: "The dog has been ___ its food since yesterday — reduced appetite.", answer: "off", options: ["off","avoiding","refusing","ignoring"], tip: '"Off its food" is the standard British expression for reduced appetite in animals.' },
+    { sentence: "On auscultation I detected a grade 3/6 systolic ___.", answer: "murmur", options: ["murmur","sound","noise","beat"], tip: '"Murmur" is the clinical term for an abnormal heart sound. Always specify grade (1-6) and timing (systolic/diastolic).' },
+    { sentence: "The patient is ___, alert and responsive — stable overnight.", answer: "bright", options: ["bright","good","fine","okay"], tip: 'BAR = Bright, Alert, Responsive. Standard UK clinical status. Also QAR (Quiet, Alert, Responsive).' },
+    { sentence: "Are you ___ for us to proceed with the surgery?", answer: "happy", options: ["happy","ready","okay","fine"], tip: '"Are you happy for us to..." is the standard British way of asking for consent. Sounds casual but is clinically significant.' },
+    { sentence: "I\'d like to run some ___ to check her kidney values.", answer: "bloods", options: ["bloods","tests","analysis","exams"], tip: '"Run some bloods" = blood tests. "Bloods" as a noun (plural) is natural UK clinical English.' },
+  ],
+  tech: [
+    { sentence: "Let\'s ___ the refactor discussion until after the sprint.", answer: "park", options: ["park","table","leave","postpone"], tip: '"Park" a discussion = postpone temporarily. Also: "table it", "put a pin in it". All mean the same in British workplace English.' },
+    { sentence: "nit: this variable name could be a ___ more descriptive.", answer: "bit", options: ["bit","lot","little","slightly"], tip: '"A bit more" is British understatement for "much more". Essential for sounding natural in UK code reviews.' },
+    { sentence: "I\'ll ___ up this feature from tomorrow — it\'s next in the backlog.", answer: "pick", options: ["pick","take","grab","start"], tip: '"Pick up" a task = start working on it. Standard UK tech workplace language.' },
+    { sentence: "I see where you\'re ___ from, but have we considered the performance impact?", answer: "coming", options: ["coming","getting","going","arriving"], tip: '"I see where you\'re coming from" = I understand your point. Professional disagreement opener in UK teams.' },
+    { sentence: "The bus ___ on this module is dangerously low — only one person knows it.", answer: "factor", options: ["factor","number","risk","count"], tip: '"Bus factor" = how many people can leave before a project fails. Essential tech vocabulary.' },
+  ],
+};
+
+// ─── READING COMPREHENSION ───────────────────────────────────────────────────
+DATA.reading = [
+  {
+    track: 'everyday',
+    title: 'Renting in London',
+    text: `Finding a flat in London can be a daunting experience, particularly for those new to the city. Most properties are let through letting agencies, who will ask for references from your employer and previous landlord, as well as a credit check. You'll typically need to pay a deposit equivalent to five weeks' rent, which is held in a government-approved tenancy deposit scheme.
+
+Once you've moved in, it's worth registering with your local GP surgery as soon as possible, as waiting lists can be long. You'll also need to pay council tax — a local tax based on the size and value of your property — unless you qualify for a discount or exemption.`,
+    questions: [
+      { q: "What does a letting agency typically ask for?", opts: ["Just your passport", "References, credit check and employer details", "Only a deposit", "A letter from your doctor"], c: 1 },
+      { q: "What is a 'tenancy deposit scheme'?", opts: ["A savings account for rent", "A government system that holds your deposit safely", "A type of insurance", "A letting agency service"], c: 1 },
+      { q: "Why should you register with a GP quickly?", opts: ["It's legally required", "Waiting lists can be long", "To get a discount on council tax", "GPs only accept new patients in summer"], c: 1 },
+    ]
+  },
+  {
+    track: 'vet',
+    title: 'Feline hyperthyroidism',
+    text: `Hyperthyroidism is the most common endocrine disorder in cats, typically affecting middle-aged to older animals. It results from the overproduction of thyroid hormones, usually due to a benign adenoma of the thyroid gland. Clinical signs include weight loss despite a good or increased appetite, polydipsia, polyuria, hyperactivity, and a poor coat condition.
+
+Diagnosis is confirmed by measuring serum total T4 levels. Treatment options include daily oral medication (methimazole), radioactive iodine therapy, surgical thyroidectomy, or a prescription diet. Radioactive iodine is considered the gold standard treatment in the UK, offering a permanent cure in over 95% of cases.`,
+    questions: [
+      { q: "What is the most common cause of feline hyperthyroidism?", opts: ["Malignant thyroid tumour", "Benign thyroid adenoma", "Dietary deficiency", "Viral infection"], c: 1 },
+      { q: "Which is considered the gold standard treatment in the UK?", opts: ["Daily oral medication", "Surgical thyroidectomy", "Radioactive iodine therapy", "Prescription diet"], c: 2 },
+      { q: "PU/PD in the text refers to:", opts: ["Poor urine/Poor digestion", "Polyuria/Polydipsia", "Partial uptake/Partial dose", "Post-op/Pre-discharge"], c: 1 },
+    ]
+  },
+  {
+    track: 'tech',
+    title: 'Code review culture',
+    text: `Effective code review is a cornerstone of high-quality software development. In most UK tech teams, reviews are expected to be constructive, specific, and respectful. A common convention is to prefix comments with labels: "nit:" for minor style suggestions, "blocking:" for changes that must be made before merging, and "suggestion:" for optional improvements.
+
+It's considered good practice to explain the reasoning behind a blocking comment rather than simply stating what's wrong. Phrases like "I see where you're coming from, but..." or "have we considered..." signal professional disagreement without creating conflict. LGTM (Looks Good To Me) is the standard approval, sometimes accompanied by a brief note on what specifically impressed the reviewer.`,
+    questions: [
+      { q: "What does a 'blocking:' comment mean?", opts: ["A comment that is too negative", "A change that must be made before merging", "An optional improvement suggestion", "A security vulnerability"], c: 1 },
+      { q: "What is LGTM short for?", opts: ["Let's Get To Merging", "Looks Good To Me", "Last Git To Main", "Left Gaps To Manage"], c: 1 },
+      { q: "How should you express disagreement professionally in a UK team?", opts: ["State directly that the approach is wrong", "Stay silent and implement what you're told", "Use phrases like 'have we considered...'", "Write a long email explaining the issue"], c: 2 },
+    ]
+  },
+];

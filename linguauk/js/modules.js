@@ -347,3 +347,119 @@ Max 200 words. Be honest and specific — this is about patient safety and profe
 
   return { renderVocab, renderGrammar, renderSpeak, renderUSUK, renderWriting, renderRoleplayPicker, renderProtocolCheck };
 })();
+
+// ─── FILL IN THE BLANK ───────────────────────────────────────────────────────
+Modules.renderFillBlank = function(trackId, c) {
+  const items = DATA.fillBlank[trackId] || DATA.fillBlank.everyday;
+  const track = DATA.tracks.find(t => t.id === trackId);
+  let idx = 0, answered = false;
+
+  function show() {
+    if (idx >= items.length) {
+      c.innerHTML = `<div class="ex-topbar"><button class="ex-back" onclick="Nav.backFromModule()">← Back</button></div><div style="text-align:center;padding:40px 0"><div style="font-family:'Playfair Display',serif;font-size:28px;margin-bottom:8px">All done!</div><button class="ex-next show" onclick="Nav.backFromModule()">Back →</button></div>`;
+      return;
+    }
+    answered = false;
+    const item = items[idx];
+    const parts = item.sentence.split('___');
+    c.innerHTML = `
+      <div class="ex-topbar">
+        <button class="ex-back" onclick="Nav.backFromModule()">← Back</button>
+        <span class="ex-pill" style="background:${track.color}">${track.name} · Fill in</span>
+      </div>
+      <div class="ex-progress"><div class="ex-progress-fill" style="width:${idx/items.length*100}%"></div></div>
+      <div class="ex-type">Complete the sentence</div>
+      <div class="ex-question" style="font-size:18px;line-height:1.7">
+        ${parts[0]}<span style="border-bottom:2px solid ${track.color};padding:0 20px;margin:0 4px;color:${track.color}" id="blank-ans"> _____ </span>${parts[1]}
+      </div>
+      <div class="ex-options">
+        ${item.options.map((o,i) => `<button class="ex-option" onclick="pickFill(${i},'${o}')">${o}</button>`).join('')}
+      </div>
+      <div class="ex-feedback" id="fb"><div class="ex-fb-label">Why</div>${item.tip}</div>
+      <button class="ex-next" id="nxt" onclick="nextFill()">Next →</button>
+      <div style="font-size:11px;color:var(--ink3);text-align:right;margin-top:8px">${idx+1} / ${items.length}</div>
+    `;
+    window.pickFill = (i, val) => {
+      if (answered) return;
+      answered = true;
+      const correct = val === item.answer;
+      document.getElementById('blank-ans').textContent = val;
+      document.getElementById('blank-ans').style.color = correct ? 'var(--vet)' : 'var(--accent)';
+      document.querySelectorAll('.ex-option').forEach((b, bi) => {
+        b.classList.add('disabled');
+        if (item.options[bi] === item.answer) b.classList.add('correct');
+        else if (bi === i && !correct) b.classList.add('wrong');
+      });
+      document.getElementById('fb').classList.add('show');
+      document.getElementById('nxt').classList.add('show');
+    };
+    window.nextFill = () => { idx++; show(); };
+  }
+  show();
+};
+
+// ─── READING COMPREHENSION ───────────────────────────────────────────────────
+Modules.renderReading = function(trackId, c) {
+  const items = DATA.reading.filter(r => r.track === trackId);
+  if (!items.length) { c.innerHTML = `<div class="ex-topbar"><button class="ex-back" onclick="Nav.backFromModule()">← Back</button></div><div style="padding:20px;color:var(--ink3)">No reading exercises for this track yet.</div>`; return; }
+  const track = DATA.tracks.find(t => t.id === trackId);
+  const item = items[Math.floor(Math.random() * items.length)];
+  let qIdx = 0, answered = false, readingDone = false;
+
+  function showText() {
+    c.innerHTML = `
+      <div class="ex-topbar">
+        <button class="ex-back" onclick="Nav.backFromModule()">← Back</button>
+        <span class="ex-pill" style="background:${track.color}">${track.name} · Reading</span>
+      </div>
+      <div class="ex-type">Read and understand</div>
+      <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:400;color:var(--ink);margin-bottom:14px">${item.title}</div>
+      <div style="font-size:14px;color:var(--ink2);line-height:1.75;background:var(--gen-light);border-radius:var(--r-lg);padding:18px;margin-bottom:16px">${item.text.replace(/\n\n/g,'</p><p style="margin-top:12px">').replace(/^/, '<p>').replace(/$/, '</p>')}</div>
+      <button class="ex-next show" onclick="startQuestions()">Answer questions →</button>
+    `;
+    window.startQuestions = () => { readingDone = true; showQuestion(); };
+  }
+
+  function showQuestion() {
+    if (qIdx >= item.questions.length) {
+      c.innerHTML = `<div class="ex-topbar"><button class="ex-back" onclick="Nav.backFromModule()">← Back</button></div><div style="text-align:center;padding:40px 0"><div style="font-family:'Playfair Display',serif;font-size:26px;margin-bottom:8px">Reading complete!</div><div style="font-size:13px;color:var(--ink3);margin-bottom:28px">All questions answered</div><button class="ex-next show" onclick="Nav.backFromModule()">Back →</button></div>`;
+      return;
+    }
+    answered = false;
+    const q = item.questions[qIdx];
+    c.innerHTML = `
+      <div class="ex-topbar">
+        <button class="ex-back" onclick="showText()">← Text</button>
+        <span class="ex-pill" style="background:${track.color}">${qIdx+1}/${item.questions.length}</span>
+      </div>
+      <div class="ex-type">Comprehension question</div>
+      <div class="ex-question">${q.q}</div>
+      <div class="ex-options">
+        ${q.opts.map((o,i) => `<button class="ex-option" onclick="pickR(${i})">${o}</button>`).join('')}
+      </div>
+      <div class="ex-feedback" id="rfb"></div>
+      <button class="ex-next" id="rnxt" onclick="nextR()">Next →</button>
+    `;
+    window.pickR = (i) => {
+      if (answered) return;
+      answered = true;
+      document.querySelectorAll('.ex-option').forEach((b, bi) => {
+        b.classList.add('disabled');
+        if (bi === q.c) b.classList.add('correct');
+        else if (bi === i) b.classList.add('wrong');
+      });
+      const fb = document.getElementById('rfb');
+      fb.textContent = i === q.c ? '✓ Correct!' : `✗ The answer is: "${q.opts[q.c]}"`;
+      fb.style.background = i === q.c ? 'var(--vet-light)' : 'var(--accent-light)';
+      fb.style.color = i === q.c ? 'var(--vet)' : 'var(--accent)';
+      fb.style.padding = '12px 14px';
+      fb.style.borderRadius = 'var(--r)';
+      fb.style.marginBottom = '14px';
+      fb.style.display = 'block';
+      document.getElementById('rnxt').classList.add('show');
+    };
+    window.nextR = () => { qIdx++; showQuestion(); };
+    window.showText = showText;
+  }
+  showText();
+};

@@ -118,7 +118,13 @@ const Nav = (() => {
       case 'ev-write':
       case 'tech-write':   Modules.renderWriting(trackId, c); break;
       case 'vet-proto':    Modules.renderProtocolCheck(c); break;
-      case 'usuk':         Modules.renderUSUK(c); break;
+      case "usuk":         Modules.renderUSUK(c); break;
+      case "ev-fill":
+      case "vet-fill":
+      case "tech-fill":   Modules.renderFillBlank(trackId, c); break;
+      case "ev-read":
+      case "vet-read":
+      case "tech-read":   Modules.renderReading(trackId, c); break;
       default:             Modules.renderVocab(trackId, c);
     }
   }

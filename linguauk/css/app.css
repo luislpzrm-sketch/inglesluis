@@ -14,7 +14,7 @@
   --sat: env(safe-area-inset-top, 0px);
   --sab: env(safe-area-inset-bottom, 0px);
 }
-@media (prefers-color-scheme: dark) {
+
   :root {
     --cream: #141412; --ink: #F0EEE8; --ink2: #B4B2A9; --ink3: #6E6C67;
     --border: #2A2925; --gen-light: #1C1B18; --vet-light: #0A1F18;
@@ -208,3 +208,20 @@ html, body { font-family: 'DM Sans', -apple-system, sans-serif; background: var(
 .loading-dots::after { content: '...'; animation: dots 1.2s steps(4,end) infinite; }
 @keyframes dots { 0%,20%{content:'.'} 40%{content:'..'} 60%,100%{content:'...'} }
 .divider { height: 0.5px; background: var(--border); margin: 16px 0; }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cream: #141412; --ink: #F0EEE8; --ink2: #B4B2A9; --ink3: #6E6C67;
+    --border: #2A2925; --gen-light: #1E1D1A; --vet-light: #0D2318;
+    --tech-light: #0A1828; --accent-light: #221008; --warn-light: #1A1005;
+  }
+  .today-card { background: #EEECEA !important; }
+  .today-label, .today-meta { color: rgba(0,0,0,.45) !important; }
+  .today-title { color: #1A1A18 !important; }
+  .today-tag { border-color: rgba(0,0,0,.15) !important; color: rgba(0,0,0,.55) !important; }
+  .start-btn { background: #1A1A18 !important; color: #F0EEE8 !important; }
+  .streak-pill { background: #2A2925 !important; color: #F0EEE8 !important; }
+  .vocab-card, .speak-card, .uk-meter, .module-card, .track-card,
+  .ex-option, .scenario-card, .error-item, .plan-item, .stat-card,
+  .rp-bubble.rp-ai, .ex-back { background: #1E1D1A !important; }
+}
