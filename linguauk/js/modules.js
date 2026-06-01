@@ -300,6 +300,10 @@ const Modules = (() => {
     `;
 
     window.submitProto = async () => {
+      const fb2 = document.getElementById('pfb');
+      AI.protocolCheck(document.getElementById('pi').value.trim(), chosen.scenario, fb2);
+      return;
+      // legacy below
       const text = document.getElementById('pi').value.trim();
       if (!text) return;
       const fb = document.getElementById('pfb');
@@ -314,7 +318,7 @@ const Modules = (() => {
 
 Max 200 words. Be honest and specific — this is about patient safety and professional integration.`;
       try {
-        const reply = await AI.call ? AI.call(sys, [{role:'user', content:`Scenario: ${chosen.scenario}\n\nLuis responded: "${text}"`}], 600)
+        const reply = await AI.call(sys, [{role:'user', content:`Scenario: ${chosen.scenario}\n\nLuis responded: "${text}"`}], 600)
           : (async () => {
             const r = await fetch('/api/claude', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,system:sys,messages:[{role:'user',content:`Scenario: ${chosen.scenario}\n\nLuis responded: "${text}"`}]})});
             const d = await r.json(); return d.content?.[0]?.text;

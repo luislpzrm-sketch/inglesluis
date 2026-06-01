@@ -225,3 +225,22 @@ html, body { font-family: 'DM Sans', -apple-system, sans-serif; background: var(
   .ex-option, .scenario-card, .error-item, .plan-item, .stat-card,
   .rp-bubble.rp-ai, .ex-back { background: #1E1D1A !important; }
 }
+
+/* ── DARK MODE BUTTON FIXES ── */
+@media (prefers-color-scheme: dark) {
+  .rp-send { background: #F0EEE8 !important; color: #1A1A18 !important; }
+  .rp-input { background: #1E1D1A !important; color: #F0EEE8 !important; border-color: #2A2925 !important; }
+  .rp-end-btn { background: #1E1D1A !important; color: #9E9C96 !important; border-color: #2A2925 !important; }
+  .rp-fb-btn { background: transparent !important; color: #6E6C67 !important; border-color: #2A2925 !important; }
+  .rp-fb-btn.active { background: #F0EEE8 !important; color: #1A1A18 !important; border-color: #F0EEE8 !important; }
+  .ex-next { background: #F0EEE8 !important; color: #1A1A18 !important; }
+  .start-btn { background: #1A1A18 !important; color: #F0EEE8 !important; border: 1px solid #3A3935 !important; }
+  .speak-rec { background: #F0EEE8 !important; color: #1A1A18 !important; }
+  .speak-rec.recording { background: #A32D2D !important; color: #fff !important; }
+  .vbtn.hard { background: #2A1010 !important; color: #F09595 !important; }
+  .vbtn.ok { background: #2A1E05 !important; color: #FAC775 !important; }
+  .vbtn.easy { background: #0D2318 !important; color: #1D9E75 !important; }
+  .writing-area { background: #1E1D1A !important; color: #F0EEE8 !important; border-color: #2A2925 !important; }
+  .ai-send-btn { background: #F0EEE8 !important; color: #1A1A18 !important; }
+  .ex-back { background: #1E1D1A !important; color: #F0EEE8 !important; border-color: #2A2925 !important; }
+}
